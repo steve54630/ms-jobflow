@@ -1,6 +1,12 @@
 import { Education } from '@prisma/client';
-import { arrayEducation, getRandomElement, Member, prisma } from '../utils/utils';
+import {
+  arrayEducation,
+  getRandomElement,
+  Member,
+  prisma,
+} from '../utils/utils';
 import { faker } from '@faker-js/faker/locale/fr';
+import { promises } from 'fs';
 
 /**
  * Ajout de formations aux membres
@@ -8,13 +14,15 @@ import { faker } from '@faker-js/faker/locale/fr';
  * @returns les formations créées
  */
 export default async function addEducationToMembers(
-  members: Member[]
+  members: Member[],
 ): Promise<Education[]> {
   for (let i = 0; i < members.length; i++) {
+    const educations: any[] = [];
+
     for (let j = 0; j < getRandomElement(arrayEducation); j++) {
       let start_date = faker.date.past();
 
-      await prisma.education.create({
+      const education = await prisma.education.create({
         data: {
           start_date: start_date,
           is_obtained: faker.datatype.boolean(),
@@ -24,8 +32,20 @@ export default async function addEducationToMembers(
           location: faker.location.city(),
           member_id: members[i].id,
         },
+        omit: {
+          created_at: true,
+          updated_at: true,
+        }
       });
+
+      educations.push(education);
     }
+
+    await promises.writeFile(
+      `../shared-data/educations/${members[i].id}.json`,
+      JSON.stringify(educations, null, 2),
+      'utf-8',
+    );
   }
 
   const educations = await prisma.education.findMany();

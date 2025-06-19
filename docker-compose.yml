@@ -71,6 +71,8 @@ services:
 
   # Mongo Express - MongoDB GUI
   mongo-express:
+    networks:
+      - db-mongo
     image: mongo-express:latest
     ports:
       - '8082:8081'

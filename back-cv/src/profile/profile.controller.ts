@@ -1,0 +1,23 @@
+import { Controller } from '@nestjs/common';
+import { ProfileService } from './profile.service';
+import { CvService } from 'src/cv/cv.service';
+import { MessagePattern } from '@nestjs/microservices';
+
+@Controller()
+export class ProfileController {
+  constructor(private readonly profileService: ProfileService, private readonly cvService: CvService) {}
+
+  @MessagePattern('cv.proifle.append')
+  async append( id : string, sub : number, select : string, value : string) {
+    await this.cvService.verifyCv(id, sub);
+    return this.profileService.append(id, select, value)
+  }
+
+  @MessagePattern('cv.proifle.delete')
+  async delete( id : string, sub : number, select : string, value : string) {
+    await this.cvService.verifyCv(id, sub);
+    return this.profileService.delete(id, select, value)
+  }
+
+
+}

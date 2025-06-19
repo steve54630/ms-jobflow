@@ -15,7 +15,7 @@ import createToken from './ft_api/token';
 
 async function main() {
   
-  const members : Member[]= require('@shared/members.json')
+  const members : Member[]= require('../../../shared-data/members.json')
 
   //Récupération du token de FranceTravail
   const token = await createToken();

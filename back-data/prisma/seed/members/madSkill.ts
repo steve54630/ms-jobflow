@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker/locale/fr';
-import { Mad_skill} from '@prisma/client';
+import { Mad_skill } from '@prisma/client';
 import {
   prisma,
   getRandomElement,
@@ -7,6 +7,7 @@ import {
   arrayMadSkills,
   Member,
 } from '../utils/utils';
+import { promises } from 'fs';
 
 /**
  * Ajout des madskills à un membre
@@ -15,7 +16,7 @@ import {
  */
 export default async function createMadSkill(
   members: Member[],
-  size: number
+  size: number,
 ): Promise<Mad_skill[]> {
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < getRandomElement(arrayMadSkills); j++) {
@@ -37,8 +38,20 @@ export default async function createMadSkill(
           title,
           member_id,
         },
+        omit: {
+          created_at: true,
+          updated_at: true,
+        }
       });
     }
+
+    const skillsData = await prisma.mad_skill.findMany({});
+
+    await promises.writeFile(
+      `../shared-data/madskills/skills.json`,
+      JSON.stringify(skillsData, null, 2),
+      'utf-8',
+    );
   }
 
   const mad_skills: Mad_skill[] = await prisma.mad_skill.findMany();
