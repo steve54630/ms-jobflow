@@ -1,0 +1,6 @@
+export enum PrismaCode {
+    TOO_LONG_VALUE = "P2000",
+    NOT_FOUND_ENTRY = "P2025",
+    NOT_UNIQUE = "P2002",
+    FOREIGN_KEY_CONSTRAINT = "P2003"
+}

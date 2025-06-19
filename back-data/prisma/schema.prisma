@@ -1,0 +1,211 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["strictUndefinedChecks"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  prepared
+  pending
+  interview_planned
+  refused
+}
+
+enum Skills {
+  hard
+  soft
+}
+
+enum MadSkills {
+  interest
+  hobbies
+}
+
+model Profile {
+  id          Int     @id @default(autoincrement())
+  picture     String? @db.Text
+  firstname   String? @db.VarChar(100)
+  lastname    String? @db.VarChar(100)
+  email       String? @db.VarChar(255)
+  phone       String? @db.VarChar(14)
+  location    String? @db.VarChar(255)
+  has_car     Boolean
+  description String? @db.Text
+  member_id   Int     @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@index([member_id])
+}
+
+model Job_offer {
+  id                 Int       @id @default(autoincrement())
+  title              String    @db.VarChar(255)
+  ftid               String    @unique @db.VarChar(10)
+  location           String?   @db.VarChar(100)
+  contract_type      String?   @db.VarChar(45)
+  experience_length  String?   @db.VarChar(100)
+  professional_field String?   @db.VarChar(100)
+  work_time          String?   @db.VarChar(100)
+  salary             String?   @db.VarChar(100)
+  handy_friendly     Boolean?
+  description        String    @db.Text
+  update_ft          DateTime?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+
+  Member_offer Member_offer[]
+}
+
+model Job_search {
+  id                 Int      @id @default(autoincrement())
+  title              String   @db.VarChar(100)
+  search_field       String   @db.VarChar(100)
+  city               String?  @db.VarChar(45)
+  departement        String?  @db.VarChar(3)
+  contract_type      String?  @db.VarChar(45)
+  experience         String?  @db.VarChar(100)
+  professional_field String?  @db.VarChar(45)
+  work_time          String?  @db.VarChar(45)
+  salary             String?  @db.VarChar(45)
+  handy_friendly     Boolean?
+  member_id          Int
+  created_at         DateTime @default(now())
+  updated_at         DateTime @default(now()) @updatedAt
+
+  @@index([member_id])
+}
+
+model Event {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(100)
+  start_date   DateTime
+  end_date     DateTime?
+  description  String?   @db.Text
+  location     String?   @db.VarChar(50)
+  member_id    Int
+  job_offer_id Int?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now()) @updatedAt
+
+  @@index([member_id])
+}
+
+model Experience {
+  id           Int       @id @default(autoincrement())
+  title        String    @db.VarChar(100)
+  start_date   DateTime  @db.Date
+  end_date     DateTime? @db.Date
+  company_name String    @db.VarChar(100)
+  location     String    @db.VarChar(50)
+  description  String?   @db.Text
+  member_id    Int
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @default(now()) @updatedAt
+
+  @@index([member_id])
+}
+
+model Education {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(100)
+  start_date  DateTime  @db.Date
+  end_date    DateTime? @db.Date
+  is_obtained Boolean
+  school_name String    @db.VarChar(100)
+  location    String    @db.VarChar(50)
+  description String?   @db.Text
+  member_id   Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now()) @updatedAt
+
+  @@index([member_id])
+}
+
+model Skill {
+  id         Int      @id @default(autoincrement())
+  title      String   @unique @db.VarChar(255)
+  category   Skills
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+
+  Member_skill Member_skill[]
+}
+
+model Mad_skill {
+  id         Int       @id @default(autoincrement())
+  title      String    @db.VarChar(255)
+  category   MadSkills
+  member_id  Int
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+
+  @@unique([member_id, title, category], name: "uniqueSkills")
+  @@index([member_id])
+}
+
+model Activity {
+  id          Int       @id @default(autoincrement())
+  title       String    @db.VarChar(100)
+  description String?   @db.Text
+  start_date  DateTime  @db.Date
+  end_date    DateTime? @db.Date
+  location    String    @db.VarChar(50)
+  member_id   Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+
+  @@index([member_id])
+}
+
+model Langue {
+  id         Int      @id @default(autoincrement())
+  title      String   @unique @db.VarChar(45)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+
+  Member_langue Member_langue[]
+}
+
+model Member_skill {
+  member_id Int
+  skill_id  Int
+
+  skill  Skill  @relation(fields: [skill_id], references: [id])
+
+  @@id([member_id, skill_id])
+}
+
+model Member_langue {
+  member_id Int
+  langue_id Int
+  level     String? @db.VarChar(100)
+
+  langue Langue @relation(fields: [langue_id], references: [id])
+
+  @@id([member_id, langue_id])
+}
+
+model Member_offer {
+  member_id Int
+  offer_id  Int
+
+  job_offer Job_offer @relation(fields: [offer_id], references: [id])
+
+  @@id([member_id, offer_id])
+}

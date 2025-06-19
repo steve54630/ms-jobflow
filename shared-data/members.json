@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "firstName": "Verna",
+    "lastName": "Howe",
+    "email": "Verna.Howe@gmail.com",
+    "password": "MW5AgO88t5lNBcO",
+    "sex": "female"
+  },
+  {
+    "id": 2,
+    "firstName": "Warren",
+    "lastName": "Bergnaum",
+    "email": "Warren_Bergnaum93@gmail.com",
+    "password": "EmArCkMHg9YeoMM",
+    "sex": "male"
+  },
+  {
+    "id": 3,
+    "firstName": "Faith",
+    "lastName": "Wilderman",
+    "email": "Faith.Wilderman96@gmail.com",
+    "password": "2atypysJQtmHy_V",
+    "sex": "female"
+  },
+  {
+    "id": 4,
+    "firstName": "Minnie",
+    "lastName": "Koelpin",
+    "email": "Minnie_Koelpin74@gmail.com",
+    "password": "LRV4i2AMq17Rtl7",
+    "sex": "female"
+  },
+  {
+    "id": 5,
+    "firstName": "Geneva",
+    "lastName": "Tillman",
+    "email": "Geneva_Tillman33@gmail.com",
+    "password": "OshCxeMXFM8ZQwI",
+    "sex": "female"
+  },
+  {
+    "id": 6,
+    "firstName": "Ida",
+    "lastName": "Schuster",
+    "email": "Ida_Schuster@hotmail.com",
+    "password": "WBu1vJRLgWZCjAW",
+    "sex": "female"
+  },
+  {
+    "id": 7,
+    "firstName": "Patti",
+    "lastName": "Reichert",
+    "email": "Patti.Reichert16@gmail.com",
+    "password": "D6oLZvaUcTbV9Tt",
+    "sex": "female"
+  },
+  {
+    "id": 8,
+    "firstName": "Melba",
+    "lastName": "Moore",
+    "email": "Melba.Moore@yahoo.com",
+    "password": "AREDrkLJMrPs9sd",
+    "sex": "female"
+  },
+  {
+    "id": 9,
+    "firstName": "Norman",
+    "lastName": "Mayer",
+    "email": "Norman_Mayer@yahoo.com",
+    "password": "vnpIZ_uHhsZNnQV",
+    "sex": "male"
+  },
+  {
+    "id": 10,
+    "firstName": "Luis",
+    "lastName": "Abshire",
+    "email": "Luis.Abshire@yahoo.com",
+    "password": "tNRskdds11LlkuC",
+    "sex": "male"
+  },
+  {
+    "id": 11,
+    "firstName": "Tammy",
+    "lastName": "Rosenbaum",
+    "email": "Tammy_Rosenbaum@yahoo.com",
+    "password": "kDjkOEv5lf7HFrm",
+    "sex": "female"
+  },
+  {
+    "id": 12,
+    "firstName": "Alvin",
+    "lastName": "Johnson",
+    "email": "Alvin_Johnson61@hotmail.com",
+    "password": "y7Wt7xahXs304Ot",
+    "sex": "male"
+  },
+  {
+    "id": 13,
+    "firstName": "Kristen",
+    "lastName": "Wuckert",
+    "email": "Kristen_Wuckert@hotmail.com",
+    "password": "fbyxH87_KDKaLww",
+    "sex": "female"
+  },
+  {
+    "id": 14,
+    "firstName": "Billy",
+    "lastName": "Hintz",
+    "email": "Billy_Hintz@hotmail.com",
+    "password": "T3OTS9Bw8rDi0zY",
+    "sex": "male"
+  },
+  {
+    "id": 15,
+    "firstName": "Kyle",
+    "lastName": "Kuvalis",
+    "email": "Kyle.Kuvalis81@hotmail.com",
+    "password": "nUtyV8_qWAhwbYr",
+    "sex": "male"
+  },
+  {
+    "id": 16,
+    "firstName": "Donnie",
+    "lastName": "Feil",
+    "email": "Donnie.Feil95@yahoo.com",
+    "password": "YlM78o_10jqgHBL",
+    "sex": "male"
+  },
+  {
+    "id": 17,
+    "firstName": "Molly",
+    "lastName": "Spinka",
+    "email": "Molly_Spinka13@gmail.com",
+    "password": "uWnGImULvc4NXtd",
+    "sex": "female"
+  },
+  {
+    "id": 18,
+    "firstName": "Ada",
+    "lastName": "Dooley",
+    "email": "Ada_Dooley50@hotmail.com",
+    "password": "gRUNOtwDOaqIH9c",
+    "sex": "female"
+  },
+  {
+    "id": 19,
+    "firstName": "Randall",
+    "lastName": "Gusikowski",
+    "email": "Randall.Gusikowski@gmail.com",
+    "password": "RiOsZM0zuGTW6p8",
+    "sex": "male"
+  },
+  {
+    "id": 20,
+    "firstName": "Henry",
+    "lastName": "Kling",
+    "email": "Henry.Kling@yahoo.com",
+    "password": "LZnPClGJvrUCcXe",
+    "sex": "male"
+  }
+]

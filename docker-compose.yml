@@ -1,0 +1,96 @@
+services:
+  db:
+    networks:
+      - db-data-network
+    image: mysql:8.0
+    volumes:
+      - db-data:/var/lib/mysql
+    # restart: always
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_PASSWORD: root
+      
+  db_auth:
+    networks:
+      - db-auth-network
+    image: mysql:8.0
+    volumes:
+      - db_auth:/var/lib/mysql
+    # restart: always
+    ports:
+      - '3308:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db-auth
+      MYSQL_PASSWORD: root
+
+  mongodb:
+    networks:
+      - db-mongo
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - data-cv:/data/db
+    # restart: unless-stopped
+
+  redis:
+    networks:
+      - db-mongo
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-cv:/data
+    # restart: always
+
+  nats:
+    networks:
+      - shared-services
+    image: nats:latest
+    ports:
+      - '4222:4222'
+      - '8222:8222'
+    # restart: always
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '8083:8081'
+    depends_on:
+      - redis
+    # restart: unless-stopped
+
+  # Mongo Express - MongoDB GUI
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - '8082:8081'
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongodb:27017/
+      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+    depends_on:
+      - mongodb
+    # restart: always
+
+volumes:
+  db-data:
+  data-cv:
+  redis-cv:
+  db_auth:
+
+networks:
+  db-auth-network:
+  db-data-network:
+  db-mongo:
+  shared-services:
