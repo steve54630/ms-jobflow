@@ -1,6 +1,10 @@
 import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateEducationDto {
+
+  @IsOptional()
+  @IsNumber()
+  id?: number;
   
   @IsNotEmpty()
   @IsDate()

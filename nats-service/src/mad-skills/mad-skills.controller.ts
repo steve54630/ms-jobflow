@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
 import { MadSkillsService } from './mad-skills.service';
 import { CreateMadSkillDto } from './dto/create-madskill.dto';
 import { Request } from 'express';
@@ -20,8 +20,8 @@ export class MadSkillsController {
   @Delete(':id')
   removeMadSkill(
     @Req() req: Request,
-    @Param('id') id: string
+    @Param('id', ParseIntPipe) id: number
   ) {
-    return this.madSkillsService.remove(req.user!['sub'], +id);
+    return this.madSkillsService.remove(req.user!['sub'], id);
   }
 }

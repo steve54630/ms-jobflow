@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import CV from 'src/cv/entity/cv.schema';
+import { CV } from 'src/cv/entity/cv.schema';
 import Education from './entity/education.entity';
 
 @Injectable()

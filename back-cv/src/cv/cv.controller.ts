@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { CvService } from './cv.service';
-import CV from './entity/cv.schema';
+import { CV } from './entity/cv.schema';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()
@@ -13,7 +13,7 @@ export class CvController {
   }
 
   @MessagePattern('cv.findAll')
-  findAll(@Payload() sub: number) {
+  findAll(@Payload() { sub }: { sub: number }) {
     return this.cvService.findAll(sub);
   }
 

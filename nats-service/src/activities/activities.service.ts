@@ -4,11 +4,11 @@ import { UpdateActivityDto } from './dto/update-activity.dto';
 import { NatsService } from 'src/nats/nats.service';
 
 @Injectable()
-export class ActivitiesService {
+export class CVActivitiesService {
 
   constructor(private readonly natsService: NatsService) {}
 
-  async remove(id: number, sub: number) {
+  async remove(id: string, sub: number) {
     return await this.natsService.send('activity.remove', { id, sub });
   }
   async update(id: number, updateActivityDto: UpdateActivityDto, sub: number) {

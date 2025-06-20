@@ -5,8 +5,9 @@ import { CVSchema } from './entity/cv.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: 'CV', schema: CVSchema}])],
+  imports: [MongooseModule.forFeature([{ name: 'CV', schema: CVSchema }])],
   controllers: [CvController],
   providers: [CvService],
+  exports: [MongooseModule, CvService],
 })
 export class CvModule {}

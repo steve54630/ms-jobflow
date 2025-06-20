@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Req } from '@nestjs/common';
 import { SkillsService } from './skills.service';
 import { Request } from 'express';
 import { UpdateSkillDto } from './dto/update-skill.dto';
@@ -25,9 +25,9 @@ export class SkillsController {
   @Delete('/:category/:id')
   removeHardSkill(
     @Req() req: Request,
-    @Param('id') id: string,
+    @Param('id',ParseIntPipe) id: number,
     @Param('category') category: "hard" | "soft",
   ) {
-    return this.skillsService.remove(req.user!['sub'], +id, category);
+    return this.skillsService.remove(req.user!['sub'], id, category);
   }
 }

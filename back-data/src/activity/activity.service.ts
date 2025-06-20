@@ -1,12 +1,9 @@
-import {
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { RpcException } from '@nestjs/microservices';
+import { error } from 'console';
 
 @Injectable()
 export class ActivityService {
@@ -15,7 +12,7 @@ export class ActivityService {
     if (createActivityDto.start_date >= createActivityDto.end_date) {
       throw new RpcException({
         code: HttpStatus.UNAUTHORIZED,
-        message: 'Start date cannot be after end date'
+        message: 'Start date cannot be after end date',
       });
     }
 
@@ -30,13 +27,21 @@ export class ActivityService {
     });
   }
 
-  async findOne(id: number, member_id: any) {
+  async findOne(id: number, member_id: number) {
+
     const result = await this.prisma.activity.findUnique({ where: { id } });
 
-    if (result?.member_id != member_id && result) {
+    if (!result) {
+      throw new RpcException({
+        code: HttpStatus.NOT_FOUND,
+        message: 'Activity not found',
+      });
+    }
+
+    if (result.member_id != member_id) {
       throw new RpcException({
         code: HttpStatus.UNAUTHORIZED,
-        message: 'Unauthorized'
+        message: 'Unauthorized',
       });
     }
 
@@ -53,7 +58,7 @@ export class ActivityService {
     if (start_date && end_date && start_date >= end_date) {
       throw new RpcException({
         code: HttpStatus.UNAUTHORIZED,
-        message: 'Start date cannot be after end date'
+        message: 'Start date cannot be after end date',
       });
     }
 

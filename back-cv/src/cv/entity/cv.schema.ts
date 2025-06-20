@@ -9,7 +9,7 @@ import Profile from 'src/profile/entity/profile.entity';
 import Skill from 'src/skills/entity/skills.entity';
 
 @Schema({ timestamps: true })
-class CV {
+export class CV {
   @Prop({ type: String, required: true })
   title: string;
 
@@ -44,6 +44,5 @@ class CV {
   activities: Activity[];
 }
 
-export default CV
 export type CvDocument = HydratedDocument<CV>
 export const CVSchema = SchemaFactory.createForClass(CV);

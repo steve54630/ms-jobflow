@@ -4,7 +4,7 @@ import { MadSkillsController } from './mad_skills.controller';
 import { CvModule } from 'src/cv/cv.module';
 
 @Module({
-  imports: [CvModule],
+  imports : [CvModule],
   controllers: [MadSkillsController],
   providers: [MadSkillsService],
 })

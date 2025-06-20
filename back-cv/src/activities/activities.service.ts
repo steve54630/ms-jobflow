@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import CV from 'src/cv/entity/cv.schema';
+import { CV } from 'src/cv/entity/cv.schema';
 import Activity from './entity/activity.entity';
 
 @Injectable()
@@ -17,10 +17,18 @@ export class ActivitiesService {
   }
 
   add(id: string, activity: Activity) {
+    console.log('🚀 ~ ActivitiesService ~ add ~ activity:', activity);
+    console.log('🚀 ~ ActivitiesService ~ add ~ id:', id);
+
+    if (!activity || typeof activity !== 'object') {
+      console.error('❌ Activity est invalide :', activity);
+      throw new Error('Activity invalide');
+    }
+
     return this.cvModel.findByIdAndUpdate(
       id,
       {
-        $push: { activities: activity },
+        $push: { activities: [activity] },
       },
       { new: true },
     );

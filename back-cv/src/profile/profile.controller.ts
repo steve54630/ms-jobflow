@@ -7,13 +7,13 @@ import { MessagePattern } from '@nestjs/microservices';
 export class ProfileController {
   constructor(private readonly profileService: ProfileService, private readonly cvService: CvService) {}
 
-  @MessagePattern('cv.proifle.append')
+  @MessagePattern('cv.profile.append')
   async append( id : string, sub : number, select : string, value : string) {
     await this.cvService.verifyCv(id, sub);
     return this.profileService.append(id, select, value)
   }
 
-  @MessagePattern('cv.proifle.delete')
+  @MessagePattern('cv.profile.delete')
   async delete( id : string, sub : number, select : string, value : string) {
     await this.cvService.verifyCv(id, sub);
     return this.profileService.delete(id, select, value)

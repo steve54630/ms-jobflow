@@ -33,6 +33,7 @@ async function main() {
 
     membersJson.push({
       id: member.id,
+      username,
       firstName,
       lastName,
       email: email,

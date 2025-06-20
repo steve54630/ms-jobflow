@@ -3,7 +3,7 @@ import { AuthModule } from './auth/auth.module';
 import { NatsModule } from './nats/nats.module';
 import { OauthModule } from './oauth/oauth.module';
 import { ConfigModule } from '@nestjs/config';
-import { ActivitiesModule } from './activities/activities.module';
+import { CVActivitiesModule } from './activities/activities.module';
 import { EducationModule } from './education/education.module';
 import { EventModule } from './event/event.module';
 import { ExperienceModule } from './experience/experience.module';
@@ -15,6 +15,7 @@ import { MemberModule } from './member/member.module';
 import { LoginGuard } from './shared/guard/login.guard';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { VerifyUserGuard } from './shared/guard/member.guard';
+import { CvModule } from './cv/cv.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { VerifyUserGuard } from './shared/guard/member.guard';
     ConfigModule.forRoot({
       isGlobal: true, // rend le module accessible partout
     }),
-    ActivitiesModule,
+    CVActivitiesModule,
     EducationModule,
     EventModule,
     ExperienceModule,
@@ -33,6 +34,7 @@ import { VerifyUserGuard } from './shared/guard/member.guard';
     ProfileModule,
     SkillsModule,
     MemberModule,
+    CvModule,
   ],
   controllers: [],
   providers: [

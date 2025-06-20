@@ -22,7 +22,7 @@ export class ActivityController {
 
   @MessagePattern('activity.findOne')
   findOne(@Payload() { id, sub }: { id: number; sub: number }) {
-    return this.activityService.findOne(+id, sub);
+    return this.activityService.findOne(id, sub);
   }
 
   @MessagePattern('activity.update')

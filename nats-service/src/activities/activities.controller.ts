@@ -9,14 +9,14 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { ActivitiesService } from './activities.service';
+import { CVActivitiesService } from './activities.service';
 import { Request } from 'express';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 
 @Controller('activities')
 export class ActivitiesController {
-  constructor(private readonly activityService: ActivitiesService) {}
+  constructor(private readonly activityService: CVActivitiesService) {}
 
   @Post()
   create(@Body() createActivityDto: CreateActivityDto, @Req() req: Request) {
@@ -38,7 +38,7 @@ export class ActivitiesController {
   }
 
   @Delete(':activityId')
-  remove(@Param('activityId', ParseIntPipe) id: number, @Req() req: Request) {
-    return this.activityService.remove(+id, req.user!['sub']);
+  remove(@Param('activityId') id: string, @Req() req: Request) {
+    return this.activityService.remove(id, req.user!['sub']);
   }
 }

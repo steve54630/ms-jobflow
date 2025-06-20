@@ -1,6 +1,11 @@
-import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateActivityDto {
+
+  @IsOptional()
+  @IsNumber()
+  id? : number
+
   @IsNotEmpty()
   @IsDate()
   start_date: Date;

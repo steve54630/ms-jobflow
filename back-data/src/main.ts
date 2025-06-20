@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import PrismaException from 'prisma/prisma.exception';
+import { PrismaException } from 'prisma/prisma.exception';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
