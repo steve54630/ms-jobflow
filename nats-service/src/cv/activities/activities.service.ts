@@ -1,5 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common';
 import { CreateActivityDto } from 'src/activities/dto/create-activity.dto';
 import { NatsService } from 'src/nats/nats.service';
 
@@ -13,16 +12,15 @@ export class CVActivitiesService {
       sub,
     });
 
-    console.log("🚀 ~ CVActivitiesService ~ add ~ s:", result)
-
     return await this.natsService.send('cv.activities.add', {
       id,
       activity,
       sub,
     });
   }
-  async remove(id: number, activityId: number, sub: number) {
-    return await this.natsService.send('cv.activities.remove', {
+
+  async remove(id: string, activityId: number, sub: number) {
+    return await this.natsService.emit('cv.activities.delete', {
       id,
       activityId,
       sub,

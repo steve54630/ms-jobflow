@@ -50,8 +50,8 @@ async function generateCVs() {
       educations: pickRandom(educations, 1),
       activities: pickRandom(activities, 1),
       skills: pickRandom(skills, 2),
-      langues: pickRandom(languages, 2),
-      mad_skills: pickRandom(mad_skills, 1)
+      languages: pickRandom(languages, 2),
+      madskills: pickRandom(mad_skills, 1)
     };
 
     await fs.writeFile(
@@ -73,8 +73,8 @@ const CVSchema = new Schema({
   experiences: Array,
   educations: Array,
   skills: Array,
-  mad_skills: Array,
-  langues: Array,
+  madskills: Array,
+  languages: Array,
   activities: Array,
 });
 

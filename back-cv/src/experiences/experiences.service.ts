@@ -11,7 +11,7 @@ export class ExperiencesService {
   delete(id: string, experiencesId: number) {
     return this.cvModel.findByIdAndUpdate(
       id,
-      { $pull: { experiences: experiencesId } },
+      { $pull: { experiences: { id: experiencesId } } },
       { new: true },
     );
   }

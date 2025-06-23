@@ -10,7 +10,14 @@ export class ActivityController {
 
   @MessagePattern('activity.create')
   create(
-    @Payload() { id, ...createActivityDto }: CreateActivityDto & { id: number },
+    @Payload()
+    {
+      id,
+      createActivityDto,
+    }: {
+      createActivityDto: CreateActivityDto;
+      id: number;
+    },
   ) {
     return this.activityService.create(createActivityDto, id);
   }
@@ -31,8 +38,12 @@ export class ActivityController {
     {
       id,
       sub,
-      ...updateActivityDto
-    }: UpdateActivityDto & { id: number; sub: number },
+      updateActivityDto,
+    }: {
+      updateActivityDto: UpdateActivityDto;
+      sub: number;
+      id: number;
+    },
   ) {
     return this.activityService.update(id, updateActivityDto, sub);
   }

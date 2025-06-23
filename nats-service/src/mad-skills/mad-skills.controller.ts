@@ -3,7 +3,7 @@ import { MadSkillsService } from './mad-skills.service';
 import { CreateMadSkillDto } from './dto/create-madskill.dto';
 import { Request } from 'express';
 
-@Controller('mad-skills')
+@Controller('madSkills')
 export class MadSkillsController {
   constructor(private readonly madSkillsService: MadSkillsService) {}
 

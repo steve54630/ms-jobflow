@@ -29,7 +29,7 @@ export class SkillsController {
 
   @MessagePattern('skill.update')
   update(
-    @Payload() { sub, ...createSkillDto }: UpdateSkillDto & { sub: number },
+    @Payload() { sub, createSkillDto }: { createSkillDto: UpdateSkillDto ; sub: number },
   ) {
     return this.skillsService.update(sub, createSkillDto);
   }

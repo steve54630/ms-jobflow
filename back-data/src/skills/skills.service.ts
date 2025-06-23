@@ -6,7 +6,8 @@ import { UpdateSkillDto } from './dto/update-skill.dto';
 @Injectable()
 export class SkillsService {
   constructor(private prisma: PrismaService) {}
-  create(createSkillDto: UpdateSkillDto) {
+  async create(createSkillDto: UpdateSkillDto) {
+    console.log("🚀 ~ SkillsService ~ createSkill ~ createSkillDto:", createSkillDto)
     return this.prisma.skill.upsert({
       where: { title: createSkillDto.title },
       update: {},
@@ -42,6 +43,9 @@ export class SkillsService {
   }
 
   async update(member_id: number, createSkillDto: UpdateSkillDto) {
+    
+    console.log(createSkillDto);
+
     const skill = await this.create(createSkillDto);
 
     return this.prisma.member_skill.create({
@@ -53,7 +57,9 @@ export class SkillsService {
   }
 
   async remove(member_id: number, skill_id: number, category: $Enums.Skills) {
-    await this.prisma.member_skill.deleteMany({
+
+    if(category == 'soft')
+    return await this.prisma.member_skill.deleteMany({
       where: { skill_id, member_id },
     });
 
@@ -64,7 +70,7 @@ export class SkillsService {
       });
 
       if (skill.length == 0) {
-        await this.prisma.skill.delete({
+        return await this.prisma.skill.delete({
           where: { id: skill_id },
         });
       }

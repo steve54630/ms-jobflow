@@ -11,6 +11,7 @@ import { SkillsModule } from './skills/skills.module';
 import { ConfigModule } from '@nestjs/config';
 import { RedisCacheModule } from './redis-cache.module';
 import { PrismaModule } from 'prisma/prisma.module';
+import { FtApiModule } from './ft/ft-api.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { PrismaModule } from 'prisma/prisma.module';
     ProfileModule,
     SkillsModule,
     RedisCacheModule,
-    PrismaModule
+    PrismaModule,
+    FtApiModule
   ],
   controllers: [],
   providers: [],

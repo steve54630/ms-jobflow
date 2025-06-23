@@ -21,7 +21,7 @@ export class SkillsController {
     return this.skillsService.add(id, skill);
   }
 
-  @MessagePattern('cv.skill.delete')
+  @MessagePattern('cv.skills.delete')
   async delete(
     @Payload()
     { id, sub, skillId }: { id: string; sub: number; skillId: number },

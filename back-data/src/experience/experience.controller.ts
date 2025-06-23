@@ -12,7 +12,13 @@ export class ExperienceController {
   @MessagePattern('experience.create')
   async create(
     @Payload()
-    { sub, ...createExperienceDto }: CreateExperienceDto & { sub: number },
+    {
+      sub,
+      createExperienceDto,
+    }: {
+      createExperienceDto: CreateExperienceDto;
+      sub: number;
+    },
   ): Promise<Experience> {
     return await this.experienceService.create(createExperienceDto, sub);
   }
@@ -28,20 +34,18 @@ export class ExperienceController {
     {
       id,
       sub,
-      ...updateExperienceDto
-    }: UpdateExperienceDto & { id: number; sub: number },
-  ) {
-    return await this.experienceService.update(
-      id,
       updateExperienceDto,
-      sub
-    );
+    }: {
+      updateExperienceDto: UpdateExperienceDto;
+      id: number;
+      sub: number;
+    },
+  ) {
+    return await this.experienceService.update(id, updateExperienceDto, sub);
   }
 
   @MessagePattern('experience.remove')
-  async remove(
-    @Payload() { id, sub }: { id: number; sub: number },
-  ) {
+  async remove(@Payload() { id, sub }: { id: number; sub: number }) {
     return await this.experienceService.remove(id, sub);
   }
 }

@@ -16,6 +16,7 @@ import { LoginGuard } from './shared/guard/login.guard';
 import { AuthGuard } from './shared/guard/auth.guard';
 import { VerifyUserGuard } from './shared/guard/member.guard';
 import { CvModule } from './cv/cv.module';
+import { OfferModule } from './offer/offer.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { CvModule } from './cv/cv.module';
     SkillsModule,
     MemberModule,
     CvModule,
+    OfferModule,
   ],
   controllers: [],
   providers: [

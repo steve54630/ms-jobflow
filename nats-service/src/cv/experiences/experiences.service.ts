@@ -7,14 +7,14 @@ export class CVExperiencesService {
   constructor(private readonly natsService: NatsService) {}
 
   async remove(cvId: string, experienceId: number, sub: number) {
-    return await this.natsService.send('cv.experience.remove', {
+    return await this.natsService.send('cv.experiences.delete', {
       id: cvId,
       experienceId,
       sub,
     });
   }
   async add(cvId: string, experience: CreateExperienceDto, sub: number) {
-    return await this.natsService.send('cv.experience.add', {
+    return await this.natsService.send('cv.experiences.add', {
       id: cvId,
       experience,
       sub,

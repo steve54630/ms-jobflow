@@ -6,20 +6,19 @@ import Skill from './entity/skills.entity';
 
 @Injectable()
 export class SkillsService {
-
-    constructor(
-    @InjectModel(CV.name) private readonly cvModel: Model<CV>
-  ) {}
+  constructor(@InjectModel(CV.name) private readonly cvModel: Model<CV>) {}
 
   delete(id: string, skillId: number) {
     return this.cvModel.findByIdAndUpdate(
       id,
-      { $pull: { activities: skillId } },
+      { $pull: { skills: { id: skillId } } },
       { new: true },
     );
   }
 
   add(id: string, skill: Skill) {
+
+    console.log(skill);
     return this.cvModel.findByIdAndUpdate(
       id,
       {
@@ -28,5 +27,4 @@ export class SkillsService {
       { new: true },
     );
   }
-
 }

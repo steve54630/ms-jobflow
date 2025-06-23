@@ -17,7 +17,7 @@ export class EventController {
    * @returns L'événement créé
    */
   async create(
-    @Payload() { sub, ...createEventDto }: CreateEventDto & { sub: number },
+    @Payload() { sub, createEventDto }: { createEventDto: CreateEventDto; sub: number },
   ): Promise<PrismaEvent> {
     return await this.eventService.create(createEventDto, sub);
   }
@@ -73,8 +73,8 @@ export class EventController {
     {
       id,
       sub,
-      ...updateEventDto
-    }: UpdateEventDto & { id: number; sub: number },
+      updateEventDto
+    }: {updateEventDto: UpdateEventDto; id: number; sub: number },
   ): Promise<PrismaEvent> {
     return await this.eventService.update(id, updateEventDto, sub);
   }

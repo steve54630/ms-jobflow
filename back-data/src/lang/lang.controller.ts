@@ -19,7 +19,8 @@ export class LangController {
 
   @MessagePattern('lang.create')
   create(
-    @Payload() { sub, ...createLangDto }: CreateLangDto & { sub: number },
+    @Payload()
+    { sub, createLangDto }: { createLangDto: CreateLangDto; sub: number },
   ) {
     return this.langService.create(createLangDto, sub);
   }

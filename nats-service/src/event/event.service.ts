@@ -8,19 +8,19 @@ export class EventService {
   constructor(private readonly natsService: NatsService) {}
 
   async create(createEventDto: CreateEventDto, sub: number) {
-    return await this.natsService.send('event.create', { createEventDto, sub });
+    return await this.natsService.send('events.create', { createEventDto, sub });
   }
   async findAll(sub: number) {
-    return await this.natsService.send('event.findAllFuture', { sub });
+    return await this.natsService.send('events.findAllFuture', { sub });
   }
   async findAllFromDay(sub: number, day: string) {
-    return await this.natsService.send('event.findAllFromDay', { sub, day });
+    return await this.natsService.send('events.findAllFromDay', { sub, day });
   }
   async findOne(id: number) {
-    return await this.natsService.send('event.findOne', { id });
+    return await this.natsService.send('events.findOne', { id });
   }
   async update(id: number, updateEventDto: UpdateEventDto, sub: number) {
-    return await this.natsService.send('event.update', {
+    return await this.natsService.send('events.update', {
       id,
       updateEventDto,
       sub,

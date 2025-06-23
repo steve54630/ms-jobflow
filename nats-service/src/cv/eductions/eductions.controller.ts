@@ -17,10 +17,10 @@ export class CVEducationsController {
   @Post()
   async addEducationsToCV(
     @Param('cvId') cvId: string,
-    @Body() dto: CreateEducationDto,
+    @Body() dto: any,
     @Req() req: Request,
   ) {
-    return this.educationsService.add(cvId, dto, req.user!['sub']);
+    return this.educationsService.add(cvId, dto.education, req.user!['sub']);
   }
 
   @Delete(':educationId')

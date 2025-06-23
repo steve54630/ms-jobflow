@@ -10,6 +10,6 @@ export class EductionsService {
     return await this.natsService.send('cv.education.add', { id : cvId, education, sub });
   }
   async remove(cvId: string, educationId: number, sub: number) {
-    return await this.natsService.send('cv.education.remove', { id : cvId, educationId, sub });
+    return await this.natsService.send('cv.education.delete', { id : cvId, educationId, sub });
   }
 }

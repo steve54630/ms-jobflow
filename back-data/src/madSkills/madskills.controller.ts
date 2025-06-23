@@ -11,7 +11,7 @@ export class MadSkillsController {
 
   @MessagePattern('madskill.create')
   create(
-    @Payload() { sub, ...createSkillDto }: CreateMadSkillDto & { sub: number },
+    @Payload() { sub, createSkillDto }: {createSkillDto: CreateMadSkillDto; sub: number },
   ) {
     return this.madSkillsService.create(createSkillDto, sub);
   }

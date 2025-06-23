@@ -18,15 +18,9 @@ export class OauthService {
   constructor(private readonly natsService: NatsService) {}
   
   async validateOrCreateGoogleUser(user: GoogleUser) {
-    const result = this.natsService.send('google.create', user);
+    const result = await this.natsService.send('google.create', user);
+    console.log("🚀 ~ OauthService ~ validateOrCreateGoogleUser ~ result:", result)
     return result;
-  }
-  
-  async googleLogin(request: Request, response: Response) {
-    const result = await this.natsService.send('google.login', request);
-
-    response.redirect(result);
-    
   }
   
 }

@@ -68,6 +68,8 @@ model Job_offer {
 
 
   Member_offer Member_offer[]
+
+  Candidacy Candidacy[]
 }
 
 model Job_search {
@@ -199,6 +201,19 @@ model Member_langue {
   langue Langue @relation(fields: [langue_id], references: [id])
 
   @@id([member_id, langue_id])
+}
+
+model Candidacy {
+  member_id    Int
+  cv_id        String
+  job_offer_id Int
+  remember     DateTime?
+  status       Status?
+  description  String?   @db.Text
+
+  job_offer Job_offer @relation(fields: [job_offer_id], references: [id])
+
+  @@id([cv_id, job_offer_id])
 }
 
 model Member_offer {

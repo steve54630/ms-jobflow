@@ -18,17 +18,17 @@ export class CVActivitiesController {
   @Post()
   async add(
     @Param('id') cvId: string,
-    @Body() dto: CreateActivityDto,
+    @Body() dto: any,
     @Req() req: Request,
   ) {
     console.log("🚀 ~ CVActivitiesController ~ cvId:", cvId)
 
-    return this.activitiesService.add(cvId, dto, req.user!['sub']);
+    return this.activitiesService.add(cvId, dto.activity, req.user!['sub']);
   }
 
   @Delete(':activityId')
   async remove(
-    @Param('id', ParseIntPipe) cvId: number,
+    @Param('id') cvId: string,
     @Param('activityId', ParseIntPipe) activityId: number,
     @Req() req: Request,
   ) {

@@ -8,7 +8,7 @@ class Langue {
   @Prop({ type: String, required: true })
   title: string;
 
-  @Prop({ type: Date })
+  @Prop({ type: String })
   level?: string;
 }
 

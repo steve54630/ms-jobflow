@@ -7,7 +7,6 @@ import { Request, Response } from 'express';
 export class AuthService {
   constructor(private readonly natsService: NatsService) {}
   async refresh(request: Request, response: Response) {
-    
     const msg = await this.natsService.send('auth.refresh', {
       refreshToken: request.cookies.refreshToken,
       ip: request.ip,
@@ -23,8 +22,22 @@ export class AuthService {
     return { accessToken: msg.accessToken };
   }
 
-  async login(authDto: AuthDto, request: Request, response: Response) {
+  async googleLogin(request: Request, response: Response) {
+    const result = await this.natsService.send('google.redirect', {
+      username: request.user!['username'],
+    });
 
+    response.cookie('refreshToken', result.token.refreshToken, {
+      sameSite: 'none',
+      secure: true,
+      httpOnly: true,
+      expires: await this.getRefreshDate(),
+    });
+
+    response.redirect(result.redirectUrl);
+  }
+
+  async login(authDto: AuthDto, request: Request, response: Response) {
     const msg = await this.natsService.send('auth.login', {
       ...authDto,
       refreshToken: request.cookies.refreshToken,

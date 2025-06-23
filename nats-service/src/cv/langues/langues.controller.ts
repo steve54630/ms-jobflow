@@ -8,7 +8,6 @@ import {
   Req,
 } from '@nestjs/common';
 import { CVLanguesService } from './langues.service';
-import { CreateLangDto } from 'src/lang/dto/create-lang.dto';
 import { Request } from 'express';
 
 @Controller('cv/:cvID/languages')
@@ -18,10 +17,10 @@ export class CVLanguesController {
   @Post()
   async addLanguagesToCV(
     @Param('cvId') cvId: string,
-    @Body() dto: CreateLangDto,
+    @Body() dto: any,
     @Req() req: Request,
   ) {
-    return this.languesService.add(cvId, dto, req.user!['sub']);
+    return this.languesService.add(cvId, dto.lang, req.user!['sub']);
   }
 
   @Delete(':languageId')

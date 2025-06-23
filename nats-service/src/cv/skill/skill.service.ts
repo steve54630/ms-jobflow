@@ -6,10 +6,10 @@ import { CreateSkillDto } from 'src/skills/dto/create-skill.dto';
 export class CVSkillsService {
   constructor(private readonly natsService: NatsService) {}
 
-  async add(cvId: number, dto: CreateSkillDto, sub: number) {
-    return await this.natsService.send('cv.skill.add', { id: cvId, dto, sub });
+  async add(cvId: string, dto: CreateSkillDto, sub: number) {
+    return await this.natsService.send('cv.skills.add', { id: cvId, skill : dto, sub });
   }
-  async remove(cvId: number, skillId: number, sub: number) {
-    return await this.natsService.send('cv.skill.delete', { id: cvId, skillId, sub });
+  async remove(cvId: string, skillId: number, sub: number) {
+    return await this.natsService.send('cv.skills.delete', { id: cvId, skillId, sub });
   }
 }

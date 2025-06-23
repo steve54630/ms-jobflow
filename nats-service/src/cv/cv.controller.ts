@@ -4,7 +4,7 @@ import { Get, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { CreateCvDto } from './dto/create-cv.dto';
 
-@Controller('cv')
+@Controller('cvs')
 export class CvController {
   constructor(private readonly cvService: CvService) {}
 

@@ -10,12 +10,12 @@ export class CVExperiencesController {
   @Post()
   async add(
     @Param('cvId') cvId: string,
-    @Body() dto: CreateExperienceDto,
+    @Body() dto: any,
     @Req() req: Request,
   ) {
     return this.experiencesService.add(
       cvId,
-      dto,
+      dto.experience,
       req.user!['sub'],
     );
   }

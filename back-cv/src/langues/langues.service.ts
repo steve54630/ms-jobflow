@@ -11,16 +11,16 @@ export class LanguesService {
   delete(id: string, langueId: number) {
     return this.cvModel.findByIdAndUpdate(
       id,
-      { $pull: { activities: langueId } },
+      { $pull: { languages: { id: langueId } } },
       { new: true },
     );
   }
 
-  add(id: string, activity: Langue) {
+  add(id: string, langue: Langue) {
     return this.cvModel.findByIdAndUpdate(
       id,
       {
-        $push: { langues: Langue },
+        $push: { languages: langue },
       },
       { new: true },
     );

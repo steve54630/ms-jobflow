@@ -1,6 +1,4 @@
-import {
-  Controller,
-} from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { EducationService } from './education.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateEducationDto } from './dto/create-education.dto';
@@ -19,7 +17,13 @@ export class EducationController {
    */
   async create(
     @Payload()
-    { sub, ...createEducationDto }: CreateEducationDto & { sub: number },
+    {
+      sub,
+      createEducationDto,
+    }: {
+      createEducationDto: CreateEducationDto;
+      sub: number;
+    },
   ) {
     return await this.educationService.create(createEducationDto, sub);
   }
@@ -47,8 +51,12 @@ export class EducationController {
     {
       id,
       sub,
-      ...updateEducationDto
-    }: UpdateEducationDto & { id: number; sub: number },
+      updateEducationDto,
+    }: {
+      updateEducationDto: UpdateEducationDto;
+      id: number;
+      sub: number;
+    },
   ) {
     return await this.educationService.update(id, updateEducationDto, sub);
   }

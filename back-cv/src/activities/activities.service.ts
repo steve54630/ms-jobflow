@@ -11,7 +11,7 @@ export class ActivitiesService {
   delete(id: string, activityId: number) {
     return this.cvModel.findByIdAndUpdate(
       id,
-      { $pull: { activities: activityId } },
+      { $pull: { activities: { id: activityId } } },
       { new: true },
     );
   }

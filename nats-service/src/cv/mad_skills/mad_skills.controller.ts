@@ -11,10 +11,10 @@ export class CvMadSkillsController {
   @Post()
   async addMadSkillsToCV(
     @Param('cvId') cvId: string,
-    @Body() dto: CreateMadSkillDto,
+    @Body() dto: any,
     @Req() req : Request
   ) {
-    return this.madSkillsService.add(cvId, dto, req.user!['sub']);
+    return this.madSkillsService.add(cvId, dto.madskill, req.user!['sub']);
   }
 
   @Delete(':madskillId')

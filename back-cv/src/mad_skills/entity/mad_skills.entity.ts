@@ -10,7 +10,7 @@ class MadSkill {
   title : string
 
   @Prop({ type: String, enum: ['interest', 'hobbies'], required: true })
-  description : 'interest' | 'hobbies'
+  category : 'interest' | 'hobbies'
 }
 
 export default MadSkill

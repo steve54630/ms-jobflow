@@ -32,13 +32,13 @@ export class CV {
   educations: Education[];
 
   @Prop({ type: [SchemaFactory.createForClass(Langue)], _id: false, required: false })
-  langues: Langue[];
+  languages: Langue[];
 
   @Prop({ type: [SchemaFactory.createForClass(Skill)], _id: false, required: false })
   skills: Skill[];
 
   @Prop({ type: [SchemaFactory.createForClass(MadSkill)], _id: false, required: false })
-  mad_skills: MadSkill[];
+  madskills: MadSkill[];
 
   @Prop({ type: [SchemaFactory.createForClass(Activity)], _id: false, required: false })
   activities: Activity[];

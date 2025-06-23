@@ -3,7 +3,6 @@ import { PrismaService } from 'prisma/prisma.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { RpcException } from '@nestjs/microservices';
-import { error } from 'console';
 
 @Injectable()
 export class ActivityService {

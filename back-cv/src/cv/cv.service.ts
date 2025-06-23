@@ -15,7 +15,7 @@ export class CvService {
   }
 
   async findAll(sub: number) {
-    return await this.cvModel.find({ member_id: sub });
+    return await this.cvModel.find({ member_id: sub }).populate({ path: 'skills', select: 'id title category' });
   }
 
   async create(cv: CV, sub: number) {
@@ -24,12 +24,7 @@ export class CvService {
 
   async verifyCv(id: string, sub : number) {
 
-    console.log("🚀 ~ CvService ~ verifyCv ~ id:", id)
-    console.log("🚀 ~ CvService ~ verifyCv ~ sub:", sub)
-
     const cv = await this.cvModel.findById(id);
-    
-    console.log("🚀 ~ CvService ~ verifyCv ~ cv:", cv)
 
     if (!cv || cv.member_id !== sub) {
       throw new RpcException({ code: 404, message: 'Unauthorized' });

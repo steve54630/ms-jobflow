@@ -18,6 +18,9 @@ export class OauthService {
   constructor(private readonly prisma: PrismaService, private readonly authService: AuthService) {}
 
   async validateOrCreateGoogleUser(user: GoogleUser) {
+
+    console.log("🚀 ~ OauthService ~ validateOrCreateGoogleUser ~ user:", user)
+
     const socialLogin = await this.prisma.socialLogins.findUnique({
       where: {
         provider_provider_id: {
@@ -79,16 +82,16 @@ export class OauthService {
     }
   }
 
-  async googleLogin(username : string): Promise<string> {
+  async googleLogin(username : string) {
     try {
-      await this.authService.login({
+      const token = await this.authService.login({
         username,
         password: '',
       });
 
       const redirectUrl = `${process.env.BASE_URL}/oauth`;
 
-      return redirectUrl;
+      return {redirectUrl, token};
     } catch (error) {
       console.log(error);
       if (error.status === 409) {

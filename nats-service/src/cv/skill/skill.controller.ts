@@ -10,16 +10,16 @@ export class CvSkillsController {
 
   @Post()
   async add(
-    @Param('cvId', ParseIntPipe) cvId: number,
-    @Body() dto: CreateSkillDto,
+    @Param('cvId') cvId: string,
+    @Body() dto: any,
     @Req() req : Request
   ) {
-    return this.skillsService.add(cvId, dto, req.user!['sub']);
+    return this.skillsService.add(cvId, dto.skill, req.user!['sub']);
   }
 
   @Delete(':skillId')
   async removeSkillFromCV(
-    @Param('cvId', ParseIntPipe) cvId: number,
+    @Param('cvId') cvId: string,
     @Param('skillId', ParseIntPipe) skillId: number,
     @Req() req : Request
   ) {
