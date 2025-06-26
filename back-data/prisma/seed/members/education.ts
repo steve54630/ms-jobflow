@@ -1,4 +1,4 @@
-import { Education } from '@prisma/client';
+import { Education } from '@prisma/client-data';
 import {
   arrayEducation,
   getRandomElement,

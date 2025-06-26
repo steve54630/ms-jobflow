@@ -19,7 +19,8 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@shared/*": ["../shared-data/*"]
+      "@shared/*": ["../shared-data/*"],
+      "@prisma/client-data": ["./generated/prisma-client"]
     }
   }
 }

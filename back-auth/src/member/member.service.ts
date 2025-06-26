@@ -2,7 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
 import { PrismaService } from '../../prisma/prisma.service';
-import { Member } from '@prisma/client';
+import { Member } from '@prisma/client-data';
 import 'argon2';
 import { hash, verify } from 'argon2';
 import { RpcException } from '@nestjs/microservices';

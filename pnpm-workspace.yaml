@@ -1,0 +1,5 @@
+packages:
+  - 'back-auth'
+  - 'back-cv'
+  - 'back-data'
+  - 'nats-service'

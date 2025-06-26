@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker/locale/fr';
-import { Langue } from '@prisma/client';
+import { Langue } from '@prisma/client-data';
 import { getRandomElement, prisma, arrayLangues, Member } from '../utils/utils';
 import { promises } from 'fs';
 

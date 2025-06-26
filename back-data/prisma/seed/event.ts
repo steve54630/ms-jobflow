@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/fr';
 import { prisma, getRandomElement, Member } from './utils/utils';
-import { Job_offer } from '@prisma/client';
+import { Job_offer } from '@prisma/client-data';
 
 /**
  * Création d'événements de membres liés à ces offres

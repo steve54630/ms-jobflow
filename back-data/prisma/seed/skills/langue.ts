@@ -1,5 +1,5 @@
 import { prisma } from '../utils/utils';
-import { Langue } from '@prisma/client';
+import { Langue } from '@prisma/client-data';
 import axios from 'axios';
 
 /**

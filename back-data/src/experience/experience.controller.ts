@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { ExperienceService } from './experience.service';
-import { Experience } from '@prisma/client';
+import { Experience } from '@prisma/client-data';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { CreateExperienceDto } from './dto/create-experience.dto';
 import { UpdateExperienceDto } from './dto/update-experience.dto';

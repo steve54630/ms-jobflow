@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { SkillsService } from './skills.service';
 import { Request } from 'express';
-import { $Enums } from '@prisma/client';
+import { $Enums } from '@prisma/client-data';
 import { UpdateSkillDto } from './dto/update-skill.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 

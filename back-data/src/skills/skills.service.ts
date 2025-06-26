@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { $Enums } from '@prisma/client';
+import { $Enums } from '@prisma/client-data';
 import { UpdateSkillDto } from './dto/update-skill.dto';
 
 @Injectable()

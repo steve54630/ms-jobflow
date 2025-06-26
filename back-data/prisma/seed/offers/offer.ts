@@ -1,4 +1,4 @@
-import { Job_offer } from '@prisma/client';
+import { Job_offer } from '@prisma/client-data';
 import { prisma } from '../utils/utils';
 import axios from 'axios';
 

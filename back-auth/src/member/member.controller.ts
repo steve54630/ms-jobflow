@@ -1,7 +1,7 @@
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
-import { Member } from '@prisma/client';
+import { Member } from '@prisma/client-data';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
 export class MemberController {
@@ -29,9 +29,9 @@ export class MemberController {
    */
   @MessagePattern('member.update')
   async update(
-    @Payload() { id, ...updateMemberDto }: UpdateMemberDto & { id: number },
+    @Payload() { id: sub, ...updateMemberDto }: UpdateMemberDto & { id: number },
   ) {
-    return await this.memberService.update(id, updateMemberDto);
+    return await this.memberService.update(sub, updateMemberDto);
   }
 
   /**

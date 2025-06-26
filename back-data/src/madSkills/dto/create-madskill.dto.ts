@@ -1,4 +1,4 @@
-import { $Enums } from "@prisma/client";
+import { $Enums } from '@prisma/client-data';
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateMadSkillDto {

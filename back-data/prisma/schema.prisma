@@ -1,24 +1,12 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
+  output          = "../generated/prisma-client"
   previewFeatures = ["strictUndefinedChecks"]
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}
-
-enum Status {
-  prepared
-  pending
-  interview_planned
-  refused
 }
 
 enum Skills {
@@ -31,43 +19,46 @@ enum MadSkills {
   hobbies
 }
 
-model Profile {
-  id          Int     @id @default(autoincrement())
-  picture     String? @db.Text
-  firstname   String? @db.VarChar(100)
-  lastname    String? @db.VarChar(100)
-  email       String? @db.VarChar(255)
-  phone       String? @db.VarChar(14)
-  location    String? @db.VarChar(255)
-  has_car     Boolean
-  description String? @db.Text
-  member_id   Int     @unique
+enum Status {
+  prepared
+  pending
+  interview_planned
+  refused
+}
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
+model Profile {
+  id          Int      @id @default(autoincrement())
+  picture     String?  @db.Text
+  firstname   String?  @db.VarChar(100)
+  lastname    String?  @db.VarChar(100)
+  email       String?  @db.VarChar(255)
+  phone       String?  @db.VarChar(14)
+  location    String?  @db.VarChar(255)
+  has_car     Boolean
+  description String?  @db.Text
+  member_id   Int      @unique
+  created_at  DateTime @default(now())
+  updated_at  DateTime @default(now()) @updatedAt
 
   @@index([member_id])
 }
 
 model Job_offer {
-  id                 Int       @id @default(autoincrement())
-  title              String    @db.VarChar(255)
-  ftid               String    @unique @db.VarChar(10)
-  location           String?   @db.VarChar(100)
-  contract_type      String?   @db.VarChar(45)
-  experience_length  String?   @db.VarChar(100)
-  professional_field String?   @db.VarChar(100)
-  work_time          String?   @db.VarChar(100)
-  salary             String?   @db.VarChar(100)
+  id                 Int            @id @default(autoincrement())
+  title              String         @db.VarChar(255)
+  ftid               String         @unique @db.VarChar(10)
+  location           String?        @db.VarChar(100)
+  contract_type      String?        @db.VarChar(45)
+  experience_length  String?        @db.VarChar(100)
+  professional_field String?        @db.VarChar(100)
+  work_time          String?        @db.VarChar(100)
+  salary             String?        @db.VarChar(100)
   handy_friendly     Boolean?
-  description        String    @db.Text
+  description        String         @db.Text
   update_ft          DateTime?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-
-
-  Member_offer Member_offer[]
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @default(now()) @updatedAt
+  Member_offer       Member_offer[]
 
   Candidacy Candidacy[]
 }
@@ -138,13 +129,11 @@ model Education {
 }
 
 model Skill {
-  id         Int      @id @default(autoincrement())
-  title      String   @unique @db.VarChar(255)
-  category   Skills
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-
-
+  id           Int            @id @default(autoincrement())
+  title        String         @unique @db.VarChar(255)
+  category     Skills
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now()) @updatedAt
   Member_skill Member_skill[]
 }
 
@@ -175,32 +164,39 @@ model Activity {
 }
 
 model Langue {
-  id         Int      @id @default(autoincrement())
-  title      String   @unique @db.VarChar(45)
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now()) @updatedAt
-
-
+  id            Int             @id @default(autoincrement())
+  title         String          @unique @db.VarChar(45)
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now()) @updatedAt
   Member_langue Member_langue[]
 }
 
 model Member_skill {
   member_id Int
   skill_id  Int
-
-  skill  Skill  @relation(fields: [skill_id], references: [id])
+  skill     Skill @relation(fields: [skill_id], references: [id])
 
   @@id([member_id, skill_id])
+  @@index([skill_id], map: "Member_skill_skill_id_fkey")
 }
 
 model Member_langue {
   member_id Int
   langue_id Int
   level     String? @db.VarChar(100)
-
-  langue Langue @relation(fields: [langue_id], references: [id])
+  langue    Langue  @relation(fields: [langue_id], references: [id])
 
   @@id([member_id, langue_id])
+  @@index([langue_id], map: "Member_langue_langue_id_fkey")
+}
+
+model Member_offer {
+  member_id Int
+  offer_id  Int
+  job_offer Job_offer @relation(fields: [offer_id], references: [id])
+
+  @@id([member_id, offer_id])
+  @@index([offer_id], map: "Member_offer_offer_id_fkey")
 }
 
 model Candidacy {
@@ -214,13 +210,4 @@ model Candidacy {
   job_offer Job_offer @relation(fields: [job_offer_id], references: [id])
 
   @@id([cv_id, job_offer_id])
-}
-
-model Member_offer {
-  member_id Int
-  offer_id  Int
-
-  job_offer Job_offer @relation(fields: [offer_id], references: [id])
-
-  @@id([member_id, offer_id])
 }

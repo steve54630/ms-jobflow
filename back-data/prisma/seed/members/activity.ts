@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/fr';
 import { arrayActivity, getRandomElement, Member, prisma } from '../utils/utils';
-import { Activity } from '@prisma/client';
+import { Activity } from '@prisma/client-data';
 import { promises } from 'fs';
 
 /**

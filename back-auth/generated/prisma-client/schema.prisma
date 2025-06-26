@@ -1,0 +1,45 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma-client"
+  previewFeatures = ["strictUndefinedChecks"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id           Int            @id @default(autoincrement())
+  username     String         @unique @db.VarChar(25)
+  email        String         @unique @db.VarChar(255)
+  password     String?        @db.VarChar(128)
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @default(now()) @updatedAt
+  RefreshToken RefreshToken[]
+  socialLogins SocialLogins[]
+}
+
+model SocialLogins {
+  id            Int     @id @default(autoincrement())
+  member_id     Int
+  provider      String
+  provider_id   String
+  access_token  String  @db.VarChar(255)
+  refresh_token String?
+  member        Member  @relation(fields: [member_id], references: [id])
+
+  @@unique([provider, provider_id])
+  @@index([member_id], map: "SocialLogins_member_id_fkey")
+}
+
+model RefreshToken {
+  id         Int      @id @default(autoincrement())
+  member_id  Int
+  token      String   @db.VarChar(512)
+  expires_at DateTime
+  created_at DateTime @default(now())
+  member     Member   @relation(fields: [member_id], references: [id])
+
+  @@index([member_id], map: "RefreshToken_member_id_fkey")
+}

@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { CandidacyService } from './candidacy.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { Candidacy } from '@prisma/client';
+import { Candidacy } from '@prisma/client-data';
 import { CreateCandidacyDto } from 'src/offer/dto/create-candidacy.dto';
 
 @Controller()

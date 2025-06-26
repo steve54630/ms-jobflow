@@ -1,4 +1,4 @@
-import { Member_skill, Skill } from '@prisma/client';
+import { Member_skill, Skill } from '@prisma/client-data';
 import { getRandomElement, arrayNumber, prisma, Member } from '../utils/utils';
 import { promises } from 'fs';
 

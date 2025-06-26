@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { CreateEventDto } from 'src/event/dto/create-event.dto';
 import { UpdateEventDto } from 'src/event/dto/update-event.dto';
 import { EventService } from 'src/event/event.service';
-import { Event as PrismaEvent } from '@prisma/client';
+import { Event as PrismaEvent } from '@prisma/client-data';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()

@@ -1,0 +1,15 @@
+{
+  "name": "multi-services",
+  "version": "1.0.0",
+  "description": "JobFlow mode microservices",
+  "author": "Steve Retournay",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "pnpm -r run build",
+    "start": "pnpm -r run start"
+    
+  },
+  "keywords": [],
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.3"
+}

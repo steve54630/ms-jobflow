@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker/locale/fr';
-import { Mad_skill } from '@prisma/client';
+import { Mad_skill } from '@prisma/client-data';
 import {
   prisma,
   getRandomElement,

@@ -1,5 +1,5 @@
 import { prisma } from "../utils/utils";
-import { $Enums, Skill } from "@prisma/client";
+import { $Enums, Skill } from '@prisma/client-data';
 import { skills } from "../members/test";
 
 /**

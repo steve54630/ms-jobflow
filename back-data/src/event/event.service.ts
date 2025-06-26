@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateEventDto } from './dto/create-event.dto';
-import { Event as PrismaEvent } from '@prisma/client';
+import { Event as PrismaEvent } from '@prisma/client-data';
 import { startOfDay, endOfDay } from 'date-fns';
 import { UpdateEventDto } from './dto/update-event.dto';
 

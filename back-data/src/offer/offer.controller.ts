@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { OfferService } from './offer.service';
 import { CreateOfferDto } from 'src/offer/dto/create-offer.dto';
-import { Candidacy, Job_offer } from '@prisma/client';
+import { Candidacy, Job_offer } from '@prisma/client-data';
 import { FtApiService } from 'src/ft/ft-api.service';
 import { CreateCandidacyDto } from './dto/create-candidacy.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';

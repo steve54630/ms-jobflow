@@ -5,7 +5,7 @@ import {
   Member,
   prisma,
 } from '../utils/utils';
-import { Experience } from '@prisma/client';
+import { Experience } from '@prisma/client-data';
 import { promises } from 'fs';
 
 /**
