@@ -31,9 +31,9 @@ export class FtApiService {
     const token = await this.getToken();
 
     const response = await axios.get(
-      'https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search',
+      'https://api.francetravail.io/partenaire/offresdemploi/v2/offres/search',
       {
-        headers: { Authorization: `Bearer ${token}` },
+        // headers: { Authorization: `Bearer ${token}` },
         params: {
           motsCles: query,
           range: `${page * 10}-${page * 10 + 9}`,
@@ -57,7 +57,7 @@ export class FtApiService {
     const token = await this.getToken();
 
     const response = await axios.get(
-      `https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/${ftid}`,
+      `https://api.francetravail.io/partenaire/offresdemploi/v2/offres/${ftid}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

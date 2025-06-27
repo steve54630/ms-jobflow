@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client-data';
+import { PrismaClient } from '../../../generated/prisma-client';
 
 export type Member = {
   id: number;

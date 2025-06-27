@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 export class PrismaException extends BaseRpcExceptionFilter {
   catch(exception: PrismaClientKnownRequestError, _host: ArgumentsHost) {
     switch (exception.code) {
+
       case PrismaCode.TOO_LONG_VALUE:
         return throwError(() =>
           new RpcException({

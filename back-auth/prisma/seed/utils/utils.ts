@@ -1,5 +1,4 @@
-import { da } from '@faker-js/faker/.';
-import { PrismaClient } from '@prisma/client-data';
+import { PrismaClient } from '../../../generated/prisma-client';
 
 export function getRandomElement<T>(arr: T[]) {
   if (!Array.isArray(arr) || arr.length === 0) {

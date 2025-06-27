@@ -20,6 +20,14 @@ git branch -M main
 git push -uf origin main
 ```
 
+## Pour launch le projet
+
+```
+npm install -g pnpm
+pnpm install
+pnpm -r prisma generate
+```
+
 ## Integrate with your tools
 
 - [ ] [Set up project integrations](https://git.alt-tools.tech/SteveR/jobflow-ms/-/settings/integrations)
