@@ -11,13 +11,13 @@ import { CVActivitiesService } from './activities.service';
 import { CreateActivityDto } from 'src/activities/dto/create-activity.dto';
 import { Request } from 'express';
 
-@Controller('cv/:id/activities')
+@Controller('cv/:cvId/activities')
 export class CVActivitiesController {
   constructor(private readonly activitiesService: CVActivitiesService) {}
 
   @Post()
   async add(
-    @Param('id') cvId: string,
+    @Param('cvId') cvId: string,
     @Body() dto: any,
     @Req() req: Request,
   ) {
@@ -28,7 +28,7 @@ export class CVActivitiesController {
 
   @Delete(':activityId')
   async remove(
-    @Param('id') cvId: string,
+    @Param('cvId') cvId: string,
     @Param('activityId', ParseIntPipe) activityId: number,
     @Req() req: Request,
   ) {

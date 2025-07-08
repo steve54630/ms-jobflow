@@ -11,6 +11,8 @@ export class CVLanguesService {
     return await this.natsService.send('cv.langues.add', { id : cvId, langue, sub });
   }
   async remove(cvId: string, languageId: number, sub: number) {
+	const payload = { id : cvId, languageId, sub };
+	console.log('Envoi NATS cv.langues.delete', payload);
     return await this.natsService.send('cv.langues.delete', { id : cvId, languageId, sub });
   }
 }

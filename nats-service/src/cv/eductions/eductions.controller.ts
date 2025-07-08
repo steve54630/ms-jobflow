@@ -8,7 +8,6 @@ import {
   Req,
 } from '@nestjs/common';
 import { EductionsService } from './eductions.service';
-import { CreateEducationDto } from 'src/education/dto/create-education.dto';
 import { Request } from 'express';
 
 @Controller('cv/:cvId/educations')

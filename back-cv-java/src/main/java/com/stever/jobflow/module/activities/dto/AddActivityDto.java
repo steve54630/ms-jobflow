@@ -1,9 +1,11 @@
-package module.activities.dto;
+package com.stever.jobflow.module.activities.dto;
 
-import core.classes.Activity;
+import com.stever.jobflow.core.classes.Activity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -12,5 +14,5 @@ public class AddActivityDto {
 
     private String id;
     private int sub;
-    private Activity activity;
+    private List<Activity> activity;
 }

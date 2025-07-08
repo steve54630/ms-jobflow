@@ -1,6 +1,6 @@
-package core.enums;
+package com.stever.jobflow.core.enums;
 
-import core.interfaces.IFields;
+import com.stever.jobflow.core.interfaces.IFields;
 
 public enum CVProfileFields implements IFields {
 

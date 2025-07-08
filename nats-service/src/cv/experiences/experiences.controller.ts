@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Param, ParseIntPipe, Post, Req } from '@nestjs/common';
 import { CVExperiencesService } from './experiences.service';
-import { CreateExperienceDto } from 'src/experience/dto/create-experience.dto';
 import { Request } from 'express';
 
 @Controller('cv/:cvId/experiences')

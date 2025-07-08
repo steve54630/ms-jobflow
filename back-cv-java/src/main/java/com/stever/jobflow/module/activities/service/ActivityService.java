@@ -1,9 +1,9 @@
-package module.activities.service;
+package com.stever.jobflow.module.activities.service;
 
-import core.classes.Activity;
-import core.enums.CVFields;
+import com.stever.jobflow.core.classes.Activity;
+import com.stever.jobflow.core.enums.CVFields;
 import org.springframework.stereotype.Service;
-import repository.CvRepositoryImpl;
+import com.stever.jobflow.repository.CvRepositoryImpl;
 
 @Service
 public class ActivityService extends CvRepositoryImpl<Activity, CVFields> {}

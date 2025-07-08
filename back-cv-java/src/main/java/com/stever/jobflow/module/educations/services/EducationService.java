@@ -1,8 +1,9 @@
-package module.educations.services;
+package com.stever.jobflow.module.educations.services;
 
-import core.enums.CVFields;
+import com.stever.jobflow.core.classes.Education;
+import com.stever.jobflow.core.enums.CVFields;
 import org.springframework.stereotype.Service;
-import repository.CvRepositoryImpl;
+import com.stever.jobflow.repository.CvRepositoryImpl;
 
 @Service
-public class EducationService extends CvRepositoryImpl<Service, CVFields> {}
+public class EducationService extends CvRepositoryImpl<Education, CVFields> {}

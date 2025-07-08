@@ -23,6 +23,7 @@ export async function generateCVs(basePath: string, outputPath: string) {
     const cv = {
       member_id: Number(memberId),
       title: 'CV de ' + profile['firstname'] + ' ' + profile['lastname'],
+      cv_title: 'CV de ' + profile['firstname'] + ' ' + profile['lastname'],
       tagline: faker.lorem.sentence(),
       profile,
       experiences: pickRandom(experiences, Math.floor(Math.random() * 3) + 1),

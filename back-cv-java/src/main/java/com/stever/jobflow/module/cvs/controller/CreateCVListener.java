@@ -1,19 +1,19 @@
-package module.cvs.controller;
+package com.stever.jobflow.module.cvs.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.NatsConnectionManager;
-import core.CvSchema;
+import com.stever.jobflow.config.NatsConnectionManager;
+import com.stever.jobflow.core.CvSchema;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
-import config.BaseListener;
-import module.cvs.dto.CreateCvRequest;
-import config.EnvelopeRequest;
-import module.errors.ErrorPublisher;
+import com.stever.jobflow.config.BaseListener;
+import com.stever.jobflow.module.cvs.dto.CreateCvDto;
+import com.stever.jobflow.config.EnvelopeRequest;
+import com.stever.jobflow.core.errors.ErrorPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import module.cvs.service.CvService;
+import com.stever.jobflow.module.cvs.service.CvService;
 
 import javax.annotation.PostConstruct;
 
@@ -36,10 +36,10 @@ public class CreateCVListener extends BaseListener {
         Dispatcher d = ns.createDispatcher();
         d.subscribe("cv.create", m -> {
             try {
-                EnvelopeRequest<CreateCvRequest> req = parseRequest(m, new TypeReference<>() {});
-                CreateCvRequest data = req.getData();
-                log.info("Création du cv {}", data.getCv().getCvTitle());
-                CvSchema created = cvService.create(data.getCv(),  data.getSub());
+                EnvelopeRequest<CreateCvDto> req = parseRequest(m, new TypeReference<>() {});
+                CreateCvDto data = req.getData();
+                log.info("Création du cv {}", data.getCv().get(0).getCvTitle());
+                CvSchema created = cvService.create(data.getCv().get(0),  data.getSub());
                 sendResponse(m, created, ns);
             } catch (JsonProcessingException je) {
                 this.logErrorAndSend(je, m, 400, je.getLocalizedMessage());

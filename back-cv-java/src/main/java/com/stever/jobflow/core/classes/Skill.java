@@ -1,4 +1,4 @@
-package core.classes;
+package com.stever.jobflow.core.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -8,9 +8,9 @@ import com.stever.jobflow.config.EnvelopeRequest;
 import com.stever.jobflow.core.CvSchema;
 import com.stever.jobflow.core.enums.CVFields;
 import com.stever.jobflow.module.cvs.service.CvService;
-import com.stever.jobflow.module.educations.dto.AddEducationDto;
+import com.stever.jobflow.module.educations.dto.RemoveEducationDto;
 import com.stever.jobflow.module.educations.services.EducationService;
-import com.stever.jobflow.module.errors.ErrorPublisher;
+import com.stever.jobflow.core.errors.ErrorPublisher;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import lombok.extern.slf4j.Slf4j;
@@ -20,32 +20,32 @@ import javax.annotation.PostConstruct;
 
 @Slf4j
 @Component
-public class AppendEducationListener extends BaseListener {
+public class RemoveEducationListener extends BaseListener {
 
     private final EducationService educationService;
     private final CvService cvService;
     private final Connection ns;
 
 
-    public AppendEducationListener(ObjectMapper mapper, ErrorPublisher errorPublisher, EducationService educationService, CvService cvService, Connection ns) {
+    public RemoveEducationListener(ObjectMapper mapper, ErrorPublisher errorPublisher, EducationService educationService, CvService cvService, Connection ns) {
         super(mapper, errorPublisher);
         this.educationService = educationService;
         this.cvService = cvService;
         this.ns = ns;
-        log.info("AppendEducationListener initialized");
+        log.info("RemoveEducationListener initialized");
     }
 
     @PostConstruct
     public void subscribe() {
         Dispatcher d = ns.createDispatcher();
-        d.subscribe("cv.activities.add", m -> {
+        d.subscribe("cv.education.delete", m -> {
             try {
-                EnvelopeRequest<AddEducationDto> request = parseRequest(m, new TypeReference<>() {
+                EnvelopeRequest<RemoveEducationDto> request = parseRequest(m, new TypeReference<>() {
                 });
-                AddEducationDto data = request.getData();
-                log.info("Ajout de l'éducation {} au cv {}", data.getEducation().getId(), data.getId());
-                cvService.verify(data.getId(), data.getSub());
-                CvSchema updated = educationService.appendToField(data.getId(), CVFields.EDUCATIONS, data.getEducation());
+                RemoveEducationDto data = request.getData();
+                log.info("Suppression de l'éducation {} du cv {}", data.getEducationId(), data.getId());
+                cvService.verifyOwnership(data.getId(), data.getSub());
+                CvSchema updated = educationService.removeFromField(data.getId(), CVFields.EDUCATIONS, data.getEducationId());
                 sendResponse(m, updated, ns);
             } catch (JsonProcessingException je) {
                 this.logErrorAndSend(je, m, 400, je.getLocalizedMessage());

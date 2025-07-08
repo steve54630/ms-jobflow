@@ -1,4 +1,4 @@
-package core.exceptions;
+package com.stever.jobflow.core.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

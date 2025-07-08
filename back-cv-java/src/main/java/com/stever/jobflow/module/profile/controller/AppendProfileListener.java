@@ -1,19 +1,19 @@
-package module.profile.controller;
+package com.stever.jobflow.module.profile.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.BaseListener;
-import config.EnvelopeRequest;
-import core.CvSchema;
+import com.stever.jobflow.config.BaseListener;
+import com.stever.jobflow.config.EnvelopeRequest;
+import com.stever.jobflow.core.CvSchema;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
-import module.errors.ErrorPublisher;
-import module.profile.dto.ProfileDto;
+import com.stever.jobflow.core.errors.ErrorPublisher;
+import com.stever.jobflow.module.profile.dto.ProfileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import module.cvs.service.CvService;
-import module.profile.service.ProfileService;
+import com.stever.jobflow.module.cvs.service.CvService;
+import com.stever.jobflow.module.profile.service.ProfileService;
 
 import javax.annotation.PostConstruct;
 
@@ -42,7 +42,7 @@ public class AppendProfileListener extends BaseListener {
                 });
                 ProfileDto data = request.getData();
                 log.info("Modification du champ {} pour le cv {} ", data.getSelect(), data.getValue());
-                cvService.verify(data.getId(), data.getSub());
+                cvService.verifyOwnership(data.getId(), data.getSub());
                 CvSchema updated = profileService.appendToField(data.getId(), data.getSelect(), data.getValue());
                 sendResponse(m, updated, ns);
             } catch (JsonProcessingException je) {

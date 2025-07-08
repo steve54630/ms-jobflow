@@ -1,4 +1,4 @@
-package com.stever.jobflow.module.madskills.controller;
+package com.stever.jobflow.module.skills.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,8 +9,8 @@ import com.stever.jobflow.core.CvSchema;
 import com.stever.jobflow.core.enums.CVFields;
 import com.stever.jobflow.core.errors.ErrorPublisher;
 import com.stever.jobflow.module.cvs.service.CvService;
-import com.stever.jobflow.module.madskills.dto.AddMadSkillDto;
-import com.stever.jobflow.module.madskills.service.MadSkillsService;
+import com.stever.jobflow.module.skills.dto.AddSkillDto;
+import com.stever.jobflow.module.skills.service.SkillService;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import lombok.extern.slf4j.Slf4j;
@@ -20,31 +20,31 @@ import javax.annotation.PostConstruct;
 
 @Slf4j
 @Component
-public class AppendMadSkillListener extends BaseListener {
+public class AppendSkillListener extends BaseListener {
 
-    private final MadSkillsService madSkillService;
+    private final SkillService skillService;
     private final CvService cvService;
     private final Connection ns;
 
-    public AppendMadSkillListener(ObjectMapper mapper, ErrorPublisher errorPublisher, MadSkillsService madSkillService, CvService cvService, Connection ns) {
+    public AppendSkillListener(ObjectMapper mapper, ErrorPublisher errorPublisher, SkillService skillService, CvService cvService, Connection ns) {
         super(mapper, errorPublisher);
-        this.madSkillService = madSkillService;
+        this.skillService = skillService;
         this.cvService = cvService;
         this.ns = ns;
-        log.info("AppendMadSkillListener initialized");
+        log.info("AppendSkillListener initialized");
     }
 
     @PostConstruct
     public void subscribe() {
         Dispatcher d = ns.createDispatcher();
-        d.subscribe("cv.mad_skills.add", m -> {
+        d.subscribe("cv.skills.add", m -> {
             try {
-                EnvelopeRequest<AddMadSkillDto> request = parseRequest(m, new TypeReference<>() {
+                EnvelopeRequest<AddSkillDto> request = parseRequest(m, new TypeReference<>() {
                 });
-                AddMadSkillDto data = request.getData();
-                log.info("Ajout du mad skill {} au cv {}", data.getId(), data.getMadSkill().getId());
-                cvService.verify(data.getId(), data.getSub());
-                CvSchema updated = madSkillService.appendToField(data.getId(), CVFields.MADSKILLS, data.getMadSkill());
+                AddSkillDto data = request.getData();
+                log.info("Ajout du skill {} au cv {}", data.getId(), data.getSkill().get(0).getId());
+                cvService.verifyOwnership(data.getId(), data.getSub());
+                CvSchema updated = skillService.appendToField(data.getId(), CVFields.SKILLS, data.getSkill().get(0));
                 sendResponse(m, updated, ns);
             } catch (JsonProcessingException je) {
                 this.logErrorAndSend(je, m, 400, je.getLocalizedMessage());

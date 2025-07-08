@@ -1,4 +1,4 @@
-package module.activities.dto;
+package com.stever.jobflow.module.activities.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

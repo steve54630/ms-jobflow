@@ -1,4 +1,4 @@
-package com.stever.jobflow.main;
+package com.stever.jobflow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,8 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@EnableMongoRepositories(basePackages = "com/stever/jobflow/repository")
-@ComponentScan(basePackages = {"com/stever/jobflow/main", "com/stever/jobflow/config", "com/stever/jobflow/module"})
+@EnableMongoRepositories(basePackages = "com.stever.jobflow.repository")
 public class Application {
 
     public static void main(String[] args) {

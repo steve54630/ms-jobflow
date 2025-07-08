@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CvRequest {
+public class CvDto {
 
     private int sub;
     private String id;

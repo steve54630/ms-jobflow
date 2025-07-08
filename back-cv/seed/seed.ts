@@ -11,6 +11,7 @@ const outputPath = path.join(basePath, 'cvs');
 // Ton schéma CV simplifié ici
 const CVSchema = new Schema({
   member_id: Number,
+  cv_title: String,
   title: String,
   tagline: String,
   profile: Object,

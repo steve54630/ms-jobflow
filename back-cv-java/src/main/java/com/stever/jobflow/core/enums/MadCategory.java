@@ -1,8 +1,8 @@
-package core.enums;
+package com.stever.jobflow.core.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import core.interfaces.Categorizable;
+import com.stever.jobflow.core.interfaces.Categorizable;
 
 import java.util.Arrays;
 import java.util.Locale;

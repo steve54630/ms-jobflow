@@ -1,6 +1,6 @@
-package module.profile.dto;
+package com.stever.jobflow.module.profile.dto;
 
-import core.enums.CVProfileFields;
+import com.stever.jobflow.core.enums.CVProfileFields;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

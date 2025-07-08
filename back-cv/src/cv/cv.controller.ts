@@ -12,6 +12,12 @@ export class CvController {
     return this.cvService.create(cv, sub);
   }
 
+
+  @MessagePattern('cv.update')
+  update(@Payload() { cv, sub }: { cv: Partial<CV>; sub: number }) {
+    return this.cvService.update(cv, sub);  
+  }
+
   @MessagePattern('cv.findAll')
   findAll(@Payload() { sub }: { sub: number }) {
     return this.cvService.findAll(sub);

@@ -1,20 +1,20 @@
-package module.activities.controller;
+package com.stever.jobflow.module.activities.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.BaseListener;
-import config.EnvelopeRequest;
-import core.CvSchema;
-import core.enums.CVFields;
+import com.stever.jobflow.config.BaseListener;
+import com.stever.jobflow.config.EnvelopeRequest;
+import com.stever.jobflow.core.CvSchema;
+import com.stever.jobflow.core.enums.CVFields;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
-import module.activities.dto.DeleteActivityDto;
-import module.errors.ErrorPublisher;
+import com.stever.jobflow.module.activities.dto.DeleteActivityDto;
+import com.stever.jobflow.core.errors.ErrorPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import module.activities.service.ActivityService;
-import module.cvs.service.CvService;
+import com.stever.jobflow.module.activities.service.ActivityService;
+import com.stever.jobflow.module.cvs.service.CvService;
 
 import javax.annotation.PostConstruct;
 
@@ -43,8 +43,8 @@ public class DeleteActivityListener extends BaseListener {
                 EnvelopeRequest<DeleteActivityDto> req = parseRequest(m, new TypeReference<>() {
                 });
                 DeleteActivityDto data = req.getData();
-                log.info("Suppression de l'activité {} au cv {}", data.getId(), data.getActivityId());
-                cvService.verify(data.getId(), data.getSub());
+                log.info("Suppression de l'activité {} au cv {}", data.getActivityId(), data.getId());
+                cvService.verifyOwnership(data.getId(), data.getSub());
                 CvSchema cv = activityService.removeFromField(data.getId(), CVFields.ACTIVITIES, data.getActivityId());
                 sendResponse(m, cv, ns);
             } catch (JsonProcessingException je) {

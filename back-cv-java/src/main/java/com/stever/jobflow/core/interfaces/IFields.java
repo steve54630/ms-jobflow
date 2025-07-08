@@ -1,4 +1,4 @@
-package core.interfaces;
+package com.stever.jobflow.core.interfaces;
 
 public interface IFields {
 

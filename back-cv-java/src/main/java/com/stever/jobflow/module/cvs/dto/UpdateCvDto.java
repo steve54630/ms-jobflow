@@ -9,7 +9,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateCvRequest {
+public class UpdateCvDto {
 
     private String id;
     private Map<String, String> data;

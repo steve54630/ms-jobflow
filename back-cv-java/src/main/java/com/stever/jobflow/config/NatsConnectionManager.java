@@ -1,7 +1,8 @@
-package config;
+package com.stever.jobflow.config;
 
 import io.nats.client.Connection;
 import io.nats.client.Nats;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,25 +12,22 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class NatsConnectionManager {
 
     private Connection connection;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @PostConstruct
     public void init() {
         try {
-            logger.info("Tentative de connexion");
+            log.info("Tentative de connexion");
             connection = Nats.connect("nats://localhost:4222");
-            logger.info("connection au service nats");
+            log.info("Connexion au service nats");
         } catch (IOException | InterruptedException e) {
+            log.error("Could not connect to NATS server", e);
             throw new IllegalStateException("Could not connect to NATS server", e);
         }
-    }
-
-    public NatsConnectionManager() {
-        logger.info("Constructeur NatsConnectionManager appelé");
     }
 
     @Bean
@@ -43,6 +41,7 @@ public class NatsConnectionManager {
     @PreDestroy
     public void clean() throws InterruptedException {
         if (connection != null && connection.getStatus() == Connection.Status.CONNECTED) {
+            log.info("Fermeture de la connexion NATS");
             connection.close();
         }
     }

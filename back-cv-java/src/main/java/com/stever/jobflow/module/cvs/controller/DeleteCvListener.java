@@ -1,17 +1,17 @@
-package module.cvs.controller;
+package com.stever.jobflow.module.cvs.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import config.BaseListener;
+import com.stever.jobflow.config.BaseListener;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
-import module.cvs.dto.CvRequest;
-import config.EnvelopeRequest;
-import module.errors.ErrorPublisher;
+import com.stever.jobflow.module.cvs.dto.CvDto;
+import com.stever.jobflow.config.EnvelopeRequest;
+import com.stever.jobflow.core.errors.ErrorPublisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import module.cvs.service.CvService;
+import com.stever.jobflow.module.cvs.service.CvService;
 
 import javax.annotation.PostConstruct;
 
@@ -34,9 +34,9 @@ public class DeleteCvListener extends BaseListener {
         Dispatcher d = ns.createDispatcher();
         d.subscribe("cv.delete", m -> {
             try {
-                EnvelopeRequest<CvRequest> req = parseRequest(m, new TypeReference<>() {
+                EnvelopeRequest<CvDto> req = parseRequest(m, new TypeReference<>() {
                 });
-                CvRequest data = req.getData();
+                CvDto data = req.getData();
                 log.info("Suppression du cv {}", data.getId());
                 Boolean deleted = cvService.delete(data.getId(), data.getSub());
                 sendResponse(m, deleted, ns);

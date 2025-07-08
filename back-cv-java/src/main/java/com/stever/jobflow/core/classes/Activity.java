@@ -1,4 +1,4 @@
-package core.classes;
+package com.stever.jobflow.core.classes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

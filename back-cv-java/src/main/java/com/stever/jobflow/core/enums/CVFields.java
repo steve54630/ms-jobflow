@@ -1,14 +1,14 @@
-package core.enums;
+package com.stever.jobflow.core.enums;
 
-import core.classes.*;
-import core.interfaces.IFields;
+import com.stever.jobflow.core.classes.*;
+import com.stever.jobflow.core.interfaces.IFields;
 
 public enum CVFields implements IFields {
 
 
     EXPERIENCES("experiences", Experience.class),
     EDUCATIONS("educations", Education.class),
-    LANGUAGES("languages", Langue.class),
+    LANGUES("languages", Langue.class),
     SKILLS("skills", Skill.class),
     MADSKILLS("madskills", MadSkill.class),
     ACTIVITIES("activities", Activity.class);

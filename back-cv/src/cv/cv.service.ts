@@ -6,6 +6,7 @@ import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class CvService {
+  
   constructor(@InjectModel(CV.name) private readonly cvModel: Model<CV>) {}
 
   async delete(id: string, sub: number) {
@@ -29,5 +30,9 @@ export class CvService {
     if (!cv || cv.member_id !== sub) {
       throw new RpcException({ code: 404, message: 'Unauthorized' });
     }
+  }
+
+  update(cv: Partial<CV>, sub: number) {
+    
   }
 }

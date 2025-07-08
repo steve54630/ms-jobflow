@@ -1,6 +1,6 @@
-package repository.interfaces;
+package com.stever.jobflow.repository.interfaces;
 
-import core.CvSchema;
+import com.stever.jobflow.core.CvSchema;
 
 public interface SubCvRepository<T,U> {
 

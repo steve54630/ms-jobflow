@@ -1,9 +1,9 @@
-package core;
+package com.stever.jobflow.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
-import core.classes.*;
+import com.stever.jobflow.core.classes.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -28,6 +28,8 @@ public class CvSchema {
     private String title;
 
     @Getter(AccessLevel.NONE)
+    @Field("cv_title")
+    @JsonProperty("cv_title")
     private String cvTitle;
 
     private String tagline;

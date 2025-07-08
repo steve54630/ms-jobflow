@@ -10,7 +10,7 @@ import {
 import { CVLanguesService } from './langues.service';
 import { Request } from 'express';
 
-@Controller('cv/:cvID/languages')
+@Controller('cv/:cvId/languages')
 export class CVLanguesController {
   constructor(private readonly languesService: CVLanguesService) {}
 

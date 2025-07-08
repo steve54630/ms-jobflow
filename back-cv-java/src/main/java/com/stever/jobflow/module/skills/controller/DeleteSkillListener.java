@@ -1,4 +1,4 @@
-package com.stever.jobflow.module.madskills.controller;
+package com.stever.jobflow.module.skills.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -9,8 +9,8 @@ import com.stever.jobflow.core.CvSchema;
 import com.stever.jobflow.core.enums.CVFields;
 import com.stever.jobflow.core.errors.ErrorPublisher;
 import com.stever.jobflow.module.cvs.service.CvService;
-import com.stever.jobflow.module.madskills.dto.RemoveMadSkillsDto;
-import com.stever.jobflow.module.madskills.service.MadSkillsService;
+import com.stever.jobflow.module.skills.dto.RemoveSkillDto;
+import com.stever.jobflow.module.skills.service.SkillService;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import lombok.extern.slf4j.Slf4j;
@@ -20,31 +20,31 @@ import javax.annotation.PostConstruct;
 
 @Slf4j
 @Component
-public class DeleteMadSkillListener extends BaseListener {
+public class DeleteSkillListener extends BaseListener {
 
-    private final MadSkillsService madSkillService;
+    private final SkillService skillService;
     private final CvService cvService;
     private final Connection ns;
 
-    public DeleteMadSkillListener(ObjectMapper mapper, ErrorPublisher errorPublisher, MadSkillsService madSkillService, CvService cvService, Connection ns) {
+    public DeleteSkillListener(ObjectMapper mapper, ErrorPublisher errorPublisher, SkillService skillService, CvService cvService, Connection ns) {
         super(mapper, errorPublisher);
-        this.madSkillService = madSkillService;
+        this.skillService = skillService;
         this.cvService = cvService;
         this.ns = ns;
-        log.info("DeleteMadSkillListener initialized");
+        log.info("DeleteSkillListener initialized");
     }
 
     @PostConstruct
     public void subscribe() {
         Dispatcher d = ns.createDispatcher();
-        d.subscribe("cv.mad_skills.delete", m -> {
+        d.subscribe("cv.skills.delete", m -> {
             try {
-                EnvelopeRequest<RemoveMadSkillsDto> request = parseRequest(m, new TypeReference<>() {
+                EnvelopeRequest<RemoveSkillDto> request = parseRequest(m, new TypeReference<>() {
                 });
-                RemoveMadSkillsDto data = request.getData();
-                log.info("Suppression du mad skill {} du cv {}", data.getMadSkillId(), data.getId());
-                cvService.verify(data.getId(), data.getSub());
-                CvSchema updated = madSkillService.removeFromField(data.getId(), CVFields.MADSKILLS, data.getMadSkillId());
+                RemoveSkillDto data = request.getData();
+                log.info("Suppression du skill {} du cv {}", data.getSkillId(), data.getId());
+                cvService.verifyOwnership(data.getId(), data.getSub());
+                CvSchema updated = skillService.removeFromField(data.getId(), CVFields.SKILLS, data.getSkillId());
                 sendResponse(m, updated, ns);
             } catch (JsonProcessingException je) {
                 this.logErrorAndSend(je, m, 400, je.getLocalizedMessage());

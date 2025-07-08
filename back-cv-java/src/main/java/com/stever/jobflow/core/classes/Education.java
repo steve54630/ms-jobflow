@@ -1,5 +1,7 @@
-package core.classes;
+package com.stever.jobflow.core.classes;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.stever.jobflow.config.LocalDateToInstantDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +20,12 @@ public class Education {
     private Integer id;
 
     @JsonProperty("start_date")
+    @JsonDeserialize(using = LocalDateToInstantDeserializer.class)
     @Field("start_date")
     private Instant startDate;
 
     @JsonProperty("end_date")
+    @JsonDeserialize(using = LocalDateToInstantDeserializer.class)
     @Field("end_date")
     private Instant endDate;
 

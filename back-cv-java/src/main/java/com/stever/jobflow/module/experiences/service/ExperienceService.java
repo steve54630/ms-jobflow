@@ -1,9 +1,9 @@
-package module.experiences.service;
+package com.stever.jobflow.module.experiences.service;
 
-import core.classes.Experience;
-import core.enums.CVFields;
+import com.stever.jobflow.core.classes.Experience;
+import com.stever.jobflow.core.enums.CVFields;
 import org.springframework.stereotype.Service;
-import repository.CvRepositoryImpl;
+import com.stever.jobflow.repository.CvRepositoryImpl;
 
 @Service
 public class ExperienceService extends CvRepositoryImpl<Experience, CVFields> {}

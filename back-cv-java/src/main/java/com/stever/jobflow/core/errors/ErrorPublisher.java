@@ -1,4 +1,4 @@
-package com.stever.jobflow.module.errors;
+package com.stever.jobflow.core.errors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

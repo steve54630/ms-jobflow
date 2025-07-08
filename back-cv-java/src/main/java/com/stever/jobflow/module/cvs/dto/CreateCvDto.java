@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCvRequest {
+public class CreateCvDto {
 
     @JsonProperty("createCvDto")
     private List<CvSchema> cv;

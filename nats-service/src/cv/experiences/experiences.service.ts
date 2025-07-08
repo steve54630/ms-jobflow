@@ -6,10 +6,10 @@ import { NatsService } from 'src/nats/nats.service';
 export class CVExperiencesService {
   constructor(private readonly natsService: NatsService) {}
 
-  async remove(cvId: string, experienceId: number, sub: number) {
+  async remove(cvId: string, experience_id: number, sub: number) {
     return await this.natsService.send('cv.experiences.delete', {
       id: cvId,
-      experienceId,
+      experience_id,
       sub,
     });
   }

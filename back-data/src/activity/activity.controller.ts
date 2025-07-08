@@ -3,6 +3,8 @@ import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Activity } from '@prisma/client-data';
+import { P } from '@faker-js/faker/dist/airline-BUL6NtOJ';
 
 @Controller()
 export class ActivityController {
@@ -18,17 +20,17 @@ export class ActivityController {
       createActivityDto: CreateActivityDto;
       id: number;
     },
-  ) {
+  ) : Promise<Activity> {
     return this.activityService.create(createActivityDto, id);
   }
 
   @MessagePattern('activity.findAll')
-  findAll(@Payload() { id }: { id: number }) {
+  findAll(@Payload() { id }: { id: number }) : Promise<Activity[] | null> {
     return this.activityService.findAll(id);
   }
 
   @MessagePattern('activity.findOne')
-  findOne(@Payload() { id, sub }: { id: number; sub: number }) {
+  findOne(@Payload() { id, sub }: { id: number; sub: number }) : Promise<Activity | null> {
     return this.activityService.findOne(id, sub);
   }
 
