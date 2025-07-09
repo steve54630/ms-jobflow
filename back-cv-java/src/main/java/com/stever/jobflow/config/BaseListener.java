@@ -3,7 +3,6 @@ package com.stever.jobflow.config;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stever.jobflow.core.interfaces.Listener;
 import io.nats.client.Connection;
 import io.nats.client.Message;
 import com.stever.jobflow.core.errors.ErrorPublisher;
@@ -11,11 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @Slf4j
 @RequiredArgsConstructor
-abstract public class BaseListener implements Listener {
+abstract public class BaseListener {
 
     protected final ObjectMapper mapper;
     protected final ErrorPublisher errorPublisher;
@@ -34,4 +32,6 @@ abstract public class BaseListener implements Listener {
         String res = mapper.writeValueAsString(response);
         ns.publish(m.getReplyTo(), res.getBytes(StandardCharsets.UTF_8));
     }
+
+    public abstract void subscribe();
 }

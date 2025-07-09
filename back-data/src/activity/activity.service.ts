@@ -52,7 +52,8 @@ export class ActivityService {
     updateActivityDto: UpdateActivityDto,
     member_id: any,
   ) {
-    const { start_date, end_date } = updateActivityDto;
+    console.log("🚀 ~ ActivityService ~ updateActivityDto:", updateActivityDto)
+    const { start_date, end_date, ...rest  } = updateActivityDto;
 
     if (start_date && end_date && start_date >= end_date) {
       throw new RpcException({
@@ -63,7 +64,7 @@ export class ActivityService {
 
     const result = await this.prisma.activity.updateMany({
       where: { AND: { id, member_id } },
-      data: { ...updateActivityDto },
+      data: { ...rest },
     });
 
     if (result.count === 0) {

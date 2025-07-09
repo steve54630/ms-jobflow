@@ -40,8 +40,6 @@ export class FtApiService {
         },
       }
     );
-    
-    console.log("🚀 ~ FtApiService ~ fetchOffers ~ response:", response)
 
     return response.data.resultats.map((ftOffer) => ({
       offerId: ftOffer.id,

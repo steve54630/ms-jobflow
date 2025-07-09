@@ -25,8 +25,8 @@ export class ActivityController {
   }
 
   @MessagePattern('activity.findAll')
-  findAll(@Payload() { id }: { id: number }) : Promise<Activity[] | null> {
-    return this.activityService.findAll(id);
+  findAll(@Payload() { sub }: { sub: number }) : Promise<Activity[] | null> {
+    return this.activityService.findAll(sub);
   }
 
   @MessagePattern('activity.findOne')
