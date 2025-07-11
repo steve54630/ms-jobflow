@@ -135,8 +135,6 @@ export class AuthService {
         message: 'Accès bloqué',
       })
     }
-
-    return {};
   }
 
   /**

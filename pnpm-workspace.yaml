@@ -2,4 +2,5 @@ packages:
   - 'back-auth'
   - 'back-cv'
   - 'back-data'
-  - 'nats-service'
+  - 'gateway'
+  - 'back-data-clean'
