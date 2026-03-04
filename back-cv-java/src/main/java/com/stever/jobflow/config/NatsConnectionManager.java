@@ -3,8 +3,6 @@ package com.stever.jobflow.config;
 import io.nats.client.Connection;
 import io.nats.client.Nats;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

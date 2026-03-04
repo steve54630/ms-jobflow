@@ -6,15 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stever.jobflow.config.BaseListener;
 import com.stever.jobflow.config.EnvelopeRequest;
 import com.stever.jobflow.core.CvSchema;
-import com.stever.jobflow.core.enums.CVFields;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import com.stever.jobflow.module.activities.dto.AddActivityDto;
 import com.stever.jobflow.core.errors.ErrorPublisher;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import com.stever.jobflow.module.activities.service.ActivityService;
-import com.stever.jobflow.module.cvs.service.CvService;
 
 import javax.annotation.PostConstruct;
 
@@ -23,34 +22,44 @@ import javax.annotation.PostConstruct;
 public class AppendActivityListener extends BaseListener {
 
     private final ActivityService activityService;
-    private final CvService cvService;
     private final Connection ns;
 
-
-    public AppendActivityListener(ObjectMapper mapper, ErrorPublisher errorPublisher, ActivityService activityService, CvService cvService, Connection ns) {
-        super(mapper, errorPublisher);
+    public AppendActivityListener(
+            ObjectMapper mapper,
+            ErrorPublisher errorPublisher,
+            ActivityService activityService,
+            Connection ns) {
+        super(mapper, errorPublisher); // Résout l'erreur "Implicit super constructor"
         this.activityService = activityService;
-        this.cvService = cvService;
         this.ns = ns;
         log.info("AppendActivityListener initialized");
     }
 
     @PostConstruct
     public void subscribe() {
+        log.info("AppendActivityListener initialized and subscribing to 'cv.activities.add'");
+
         Dispatcher d = ns.createDispatcher();
+
         d.subscribe("cv.activities.add", m -> {
             try {
+                // 1. Extraction et Parsing (Responsabilité du Listener/BaseListener)
                 EnvelopeRequest<AddActivityDto> req = parseRequest(m, new TypeReference<>() {
                 });
                 AddActivityDto data = req.getData();
-                log.info("Ajout de l'activité {} au cv {}", data.getActivity().get(0).getId(), data.getId());
-                cvService.verifyOwnership(data.getId(), data.getSub());
-                CvSchema cv = activityService.appendToField(data.getId(), CVFields.ACTIVITIES, data.getActivity().get(0));
+
+                // 2. Délégation totale à la couche métier (Le Service orchestre tout)
+                CvSchema cv = activityService.addActivityToCv(data);
+
+                // 3. Réponse (Responsabilité du Listener)
                 sendResponse(m, cv, ns);
+
             } catch (JsonProcessingException je) {
-                this.logErrorAndSend(je, m, 400, je.getLocalizedMessage());
+                this.logErrorAndSend(je, m, 400, "Invalid JSON format");
             } catch (Exception e) {
-                this.logErrorAndSend(e, m, 500, "Internal server error");
+                // Ici, on attrape aussi les erreurs métier (ex: AccessDeniedException lancée
+                // par le service)
+                this.logErrorAndSend(e, m, 500, e.getMessage());
             }
         });
     }
